@@ -1,5 +1,5 @@
-baseURL: https://example.docsy.dev
-title: Goldydocs
+baseURL: https://KintaroAI.com
+title: KintaroAI
 
 # cSpell:ignore goldmark github hugo readingtime docsy subdir lastmod pygments linenos catmullrom norsk gu
 
@@ -46,9 +46,9 @@ imaging:
 languages:
   en:
     languageName: English
-    title: Goldydocs
+    title: KintaroAI
     params:
-      description: A Docsy example site
+      description: Documentation for KintaroAI
   # cSpell:disable
   'no':
     languageName: Norsk
@@ -120,13 +120,13 @@ params:
 
   # A link to latest version of the docs. Used in the "version-banner" partial to
   # point people to the main doc site.
-  url_latest_version: https://example.com
+  url_latest_version: https://KintaroAI.com
 
   # Repository configuration (URLs for in-page links to opening issues and suggesting changes)
-  github_repo: https://github.com/google/docsy-example
+  github_repo: https://github.com/KintaroAI/docs
 
   # An optional link to a related project repo. For example, the sibling repository where your product code lives.
-  github_project_repo: https://github.com/google/docsy
+  github_project_repo: https://github.com/KintaroAI/docs
 
   # Specify a value here if your content directory is not in your repo's root directory
   # github_subdir: ""
@@ -187,7 +187,7 @@ params:
         icon: fa fa-envelope
         desc: Discussion and help from your fellow users
       - name: Twitter
-        url: https://example.org/twitter
+        url: https://twitter.com/Kintaro_AI
         icon: fab fa-twitter
         desc: Follow us on Twitter to get the latest news!
       - name: Stack Overflow
@@ -197,7 +197,7 @@ params:
     # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
     developer:
       - name: GitHub
-        url: https://github.com/google/docsy
+        url: https://github.com/KintaroAI/docs
         icon: fab fa-github
         desc: Development takes place here!
       - name: Slack
