@@ -1,4 +1,4 @@
 ---
 title: News
-weight: 20
+menu: {main: {weight: 5}}
 ---
