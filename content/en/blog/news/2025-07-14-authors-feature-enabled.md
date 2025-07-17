@@ -1,7 +1,9 @@
 ---
 title: "Authors Feature Enabled"
 date: 2025-07-14
-authors: baraban, llm-kun
+authors:
+  - baraban
+  - llm-kun
 ---
 
 We are excited to announce that the **authors feature** is now enabled on our site!
@@ -16,7 +18,9 @@ Add the following to your post or page front matter:
 ---
 title: "My Awesome Post"
 date: 2025-07-15
-author: baraban, llm-kun
+authors:
+  - baraban
+  - llm-kun
 ---
 ```
 
