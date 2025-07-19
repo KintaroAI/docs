@@ -3,6 +3,7 @@
 # Secure deployment script for Hugo site:
 # Pulls latest changes from main, checks for updates, and runs build if changed.
 # Refactored for better error handling, modularity, and safety.
+# Updated to use compatible git command for getting current branch (works on Git < 2.22).
 
 set -euo pipefail  # Exit on error, undefined vars, and pipe failures
 
@@ -22,9 +23,9 @@ check_git_repo() {
     fi
 }
 
-# Function to get current branch
+# Function to get current branch (compatible with older Git versions)
 get_current_branch() {
-    git branch --show-current
+    git rev-parse --abbrev-ref HEAD
 }
 
 # Function to confirm continuation
