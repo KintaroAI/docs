@@ -24,11 +24,11 @@
       {{- end -}}
       {{- $shortNames = $shortNames | append $abbrev -}}
     {{- end -}}
-    {{- delimit $shortNames " & " }} ({{ .context.Date.Format "2006" }}). {{ .context.Title }}. {{.context.Site.BaseURL}}{{ .context.RelPermalink }} ({{.context.Site.Title}})</code></pre>
-  <pre><code class="language-bibtex" id="bibtex-code">@misc{ {{- lower (replaceRE "[^a-zA-Z0-9]" "" (printf "%s%s%s" (index $names 0) (.context.Date.Format "2006") (.context.Title))) }},
+    {{- delimit $shortNames " & " }}{{ if .context.Date }} ({{ .context.Date.Format "2006" }}){{ end }}. {{ .context.Title }}. {{.context.Site.BaseURL}}{{ .context.RelPermalink }} ({{.context.Site.Title}})</code></pre>
+  <pre><code class="language-bibtex" id="bibtex-code">@misc{ {{- lower (replaceRE "[^a-zA-Z0-9]" "" (printf "%s%s%s" (index $names 0) (cond .context.Date (.context.Date.Format "2006") "") (.context.Title))) }},
     author = { {{- delimit $names " and " -}} },
-    title = { {{- .context.Title -}} },
-    year = { {{- .context.Date.Format "2006" -}} },
+    title = { {{- .context.Title -}} },{{ if .context.Date }}
+    year = { {{- .context.Date.Format "2006" -}} },{{ end }}
     url = { {{- .context.Site.BaseURL }}{{ .context.RelPermalink -}} },
 }</code></pre>
 </div>

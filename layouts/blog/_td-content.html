@@ -15,7 +15,7 @@
 			{{- end -}}
 			{{- $formattedAuthors = $formattedAuthors | append $formattedAuthor -}}
 		{{- end -}}
-		{{- delimit $formattedAuthors ", " | safeHTML -}} |
+		{{- delimit $formattedAuthors ", " | safeHTML -}}{{- if .Date -}} |{{ end -}}
 		{{ end }}
 		<time datetime="{{  $.Date.Format "2006-01-02" }}" class="text-body-secondary">{{ $.Date.Format $.Site.Params.time_format_blog  }}</time>
 	</div>
