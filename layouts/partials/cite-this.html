@@ -1,0 +1,35 @@
+{{- if .authors -}}
+{{- $names := slice -}}
+{{- range .authors -}}
+{{- $names = $names | append .name -}}
+{{- end -}}
+<div class="cite-this-block mt-4">
+  <h5>Citations</h5>
+  <pre><code class="language-bibtex" id="apa-code">
+    {{- $shortNames := slice -}}
+    {{- range .authors -}}
+      {{- $parts := strings.Split .name " " -}}
+      {{- $abbrev := "" -}}
+      {{- if gt (len $parts) 1 -}}
+        {{- $last := index $parts (sub (len $parts) 1) -}}
+        {{- $initials := slice -}}
+        {{- range $i, $part := $parts -}}
+          {{- if lt $i (sub (len $parts) 1) -}}
+            {{- $initials = $initials | append (printf "%s." (slicestr $part 0 1)) -}}
+          {{- end -}}
+        {{- end -}}
+        {{- $abbrev = printf "%s %s" $last (delimit $initials " ") -}}
+      {{- else -}}
+        {{- $abbrev = .name -}}
+      {{- end -}}
+      {{- $shortNames = $shortNames | append $abbrev -}}
+    {{- end -}}
+    {{- delimit $shortNames " & " }} ({{ .context.Date.Format "2006" }}). {{ .context.Title }}. {{.context.Site.BaseURL}}{{ .context.RelPermalink }} ({{.context.Site.Title}})</code></pre>
+  <pre><code class="language-bibtex" id="bibtex-code">@misc{ {{- lower (replaceRE "[^a-zA-Z0-9]" "" (printf "%s%s%s" (index $names 0) (.context.Date.Format "2006") (.context.Title))) }},
+    author = { {{- delimit $names " and " -}} },
+    title = { {{- .context.Title -}} },
+    year = { {{- .context.Date.Format "2006" -}} },
+    url = { {{- .context.Site.BaseURL }}{{ .context.RelPermalink -}} },
+}</code></pre>
+</div>
+{{- end -}}

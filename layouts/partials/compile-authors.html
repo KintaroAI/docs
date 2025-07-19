@@ -1,0 +1,11 @@
+{{ $authorsIDs := .Params.authors | default (cond .Params.author (slice .Params.author) (slice)) }}
+{{- $compiled := slice -}}
+{{- range $authorsIDs -}}
+  {{- $authorData := index $.Site.Data.authors . -}}
+  {{- if $authorData -}}
+    {{- $compiled = $compiled | append $authorData -}}
+  {{- else -}}
+    {{- $compiled = $compiled | append (dict "name" .) -}}
+  {{- end -}}
+{{- end -}}
+{{ return $compiled }}

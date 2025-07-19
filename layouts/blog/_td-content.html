@@ -2,22 +2,13 @@
 	<h1>{{ .Title }}</h1>
 	{{ with .Params.description }}<div class="lead">{{ . | markdownify }}</div>{{ end }}
 	<div class="td-byline mb-4">
-		{{ $authors := .Params.authors | default (cond .Params.author (slice .Params.author) (slice)) }}
-		{{ if $authors }}
-		  {{ T "post_byline_by" }}
-			{{ range $index, $authorID := $authors }}
-			  {{ if $authorID }}
-				{{ $authorData := index $.Site.Data.authors $authorID }}
-				{{ if $authorData }}
-				  {{ if $index }} / {{ end }}  <!-- TODO:Comma separate multiples -->
-				  {{ if $authorData.url }}<a href="{{ $authorData.url }}" target="_blank" rel="noopener noreferrer">{{ $authorData.name | markdownify }}</a>{{ else }}{{ $authorData.name }}{{ end }}
-				{{ else }}
-				  <!-- Graceful fallback: use author ID as name if not found in data -->
-				  {{ if $index }} / {{ end }}
-				  {{ $authorID | markdownify }}
-				{{ end }}
-			  {{ end }}
-			{{ end }} |
+		{{ $compiledAuthors := partial "compile-authors.html" . }}
+		{{ if $compiledAuthors }}
+		{{ T "post_byline_by" }}
+		{{ range $index, $author := $compiledAuthors -}}
+			{{ if $index }} / {{ end }}
+			{{ if $author.url }}<a href="{{ $author.url }}" target="_blank" rel="noopener noreferrer">{{ $author.name | markdownify }}</a>{{ else }}{{ $author.name }}{{ end }}
+		{{ end }} |
 		{{ end }}
 		<time datetime="{{  $.Date.Format "2006-01-02" }}" class="text-body-secondary">{{ $.Date.Format $.Site.Params.time_format_blog  }}</time>
 	</div>
@@ -37,4 +28,5 @@
 
 	{{ partial "pager.html" . }}
 	{{ partial "page-meta-lastmod.html" . -}}
+	{{ partial "cite-this.html" (dict "authors" $compiledAuthors "context" .) }}
 </div>
