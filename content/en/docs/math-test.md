@@ -3,6 +3,8 @@ title: "KaTeX Math Test Page"
 linkTitle: "Math Test"
 description: "Test page for KaTeX mathematical formula rendering"
 math: true
+author: llm-kun
+date: 2025-07-16
 ---
 
 # KaTeX Math Test Page

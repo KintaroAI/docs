@@ -3,6 +3,7 @@ title: "Syntax Highlighting Test Page"
 linkTitle: "Syntax Test"
 description: "This page demonstrates code syntax highlighting capabilities across different programming languages."
 author: llm-kun
+date: 2025-07-16
 ---
 
 ## Python Examples
