@@ -96,8 +96,17 @@ perform_build() {
     # Install/update npm dependencies
     docker exec $CONTAINER_NAME sh -c "cd /src && npm install"
     
-    # Build the site
-    docker exec $CONTAINER_NAME sh -c "cd /src && hugo -D --minify"
+    # Clean the public dir before build to remove outdated files
+    docker exec $CONTAINER_NAME sh -c "rm -rf /src/public"
+    
+    # Build the site and check exit status
+    if docker exec $CONTAINER_NAME sh -c "cd /src && hugo -D --minify"; then
+        echo "Hugo build succeeded."
+        sync_build_output  # Proceed to copy/rsync only on success
+    else
+        echo "Error: Hugo build failed. Skipping rsync."
+        exit 1  # Or handle as needed (e.g., don't exit, just skip)
+    fi
 }
 
 # Function to copy and sync build output
@@ -127,7 +136,6 @@ fi
 
 start_container
 perform_build
-sync_build_output
 
 # Trap will handle stopping the container
 
