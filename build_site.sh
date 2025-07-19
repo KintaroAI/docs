@@ -15,7 +15,7 @@ echo ""
 
 # Constants
 IMAGE_NAME="floryn90/hugo:ext-alpine"
-CONTAINER_NAME="hugo-build-persistent"
+CONTAINER_NAME="k-hugo-builder"
 REPO_URL="https://github.com/KintaroAI/docs.git"
 MAX_WAIT_ATTEMPTS=30
 
