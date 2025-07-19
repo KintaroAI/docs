@@ -101,6 +101,8 @@ outputs:
   section: [HTML, print, RSS]
 
 params:
+  mermaid:
+    theme: neutral  # Options: default, dark, neutral, forest, or base (for custom variables)
   katex:
     enable: true
   taxonomy:
