@@ -4,11 +4,20 @@
 # It creates a persistent container that clones the repo once, then reuses it for subsequent builds.
 # Uses rsync for atomic update to avoid issues if serving from /public.
 # Improved to stop the container after each build, starting it only when needed.
+# Refactored for better error handling, modularity, and robustness.
+
+set -euo pipefail  # Exit on error, undefined vars, and pipe failures
 
 cd "$(dirname "$0")"
 echo "Starting secure Hugo DocSy build..."
 echo "Static files will be generated in: $PWD/public"
 echo ""
+
+# Constants
+IMAGE_NAME="floryn90/hugo:ext-alpine"
+CONTAINER_NAME="hugo-build-persistent"
+REPO_URL="https://github.com/KintaroAI/docs.git"
+MAX_WAIT_ATTEMPTS=30
 
 # Clean up any existing Hugo build lock files on host (if any)
 if [ -f .hugo_build.lock ]; then
@@ -16,9 +25,66 @@ if [ -f .hugo_build.lock ]; then
     rm -f .hugo_build.lock
 fi
 
-IMAGE_NAME="floryn90/hugo:ext-alpine"
-CONTAINER_NAME="hugo-build-persistent"
-REPO_URL="https://github.com/KintaroAI/docs.git"
+# Function to check if container exists
+container_exists() {
+    docker ps -a --format "{{.Names}}" | grep -q "^$CONTAINER_NAME$"
+}
+
+# Function to check if container is running
+container_running() {
+    docker ps --format "{{.Names}}" | grep -q "^$CONTAINER_NAME$"
+}
+
+# Function to wait for container to start
+wait_for_container() {
+    echo "Waiting for container to start..."
+    local attempt=0
+    while [ $attempt -lt $MAX_WAIT_ATTEMPTS ]; do
+        if container_running; then
+            echo "Container $CONTAINER_NAME is running"
+            return 0
+        fi
+        attempt=$((attempt + 1))
+        echo "Waiting for container to start... (attempt $attempt/$MAX_WAIT_ATTEMPTS)"
+        sleep 1
+    done
+    
+    echo "Error: Container failed to start within $MAX_WAIT_ATTEMPTS seconds"
+    docker ps -a --filter "name=$CONTAINER_NAME" --format "table {{.Names}}\t{{.Status}}"
+    docker logs $CONTAINER_NAME 2>/dev/null || echo "No container logs available"
+    return 1
+}
+
+# Function to start container if not running
+start_container() {
+    if ! container_running; then
+        echo "Starting container..."
+        docker start $CONTAINER_NAME
+        if ! wait_for_container; then
+            exit 1
+        fi
+    else
+        echo "Container is already running."
+    fi
+}
+
+# Function to setup new container
+setup_new_container() {
+    echo "Persistent container does not exist. Creating new container and cloning repo..."
+    
+    # Create and start a new persistent container (kept alive with sleep loop)
+    docker run -d --name $CONTAINER_NAME --user root:root --entrypoint sh $IMAGE_NAME -c "while true; do sleep 1; done"
+    
+    if ! wait_for_container; then
+        exit 1
+    fi
+    
+    # Install dependencies and clone the repo
+    echo "Installing dependencies and cloning repository..."
+    docker exec $CONTAINER_NAME sh -c "apk add --no-cache nodejs npm git"
+    docker exec $CONTAINER_NAME sh -c "git clone $REPO_URL /src"
+    docker exec $CONTAINER_NAME sh -c "cd /src && git config --global --add safe.directory /src"
+}
 
 # Function to perform the build process
 perform_build() {
@@ -34,82 +100,36 @@ perform_build() {
     docker exec $CONTAINER_NAME sh -c "cd /src && hugo -D --minify"
 }
 
-# Function to wait for container to start
-wait_for_container() {
-    echo "Waiting for container to start..."
-    MAX_ATTEMPTS=30
-    ATTEMPT=0
-    while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
-        if docker ps --format "table {{.Names}}\t{{.Status}}" | grep -q "^$CONTAINER_NAME.*Up"; then
-            echo "Container $CONTAINER_NAME is running"
-            return 0
-        fi
-        ATTEMPT=$((ATTEMPT + 1))
-        echo "Waiting for container to start... (attempt $ATTEMPT/$MAX_ATTEMPTS)"
-        sleep 1
-    done
+# Function to copy and sync build output
+sync_build_output() {
+    # Clean up existing public-temp on host if it exists
+    rm -rf ./public-temp
     
-    echo "Error: Container failed to start within $MAX_ATTEMPTS seconds"
-    echo "Container status:"
-    docker ps -a --filter "name=$CONTAINER_NAME" --format "table {{.Names}}\t{{.Status}}\t{{.State}}"
-    docker logs $CONTAINER_NAME 2>/dev/null || echo "No container logs available"
-    return 1
+    # Copy only the /public folder back to a temp dir on host
+    echo "Copying built public folder to temp dir..."
+    docker cp $CONTAINER_NAME:/src/public ./public-temp
+    
+    # Sync temp to live public using rsync with delete
+    echo "Syncing temp to public (atomic update)..."
+    rsync -a --delete ./public-temp/ ./public/
+    
+    # Remove the temp dir
+    rm -rf ./public-temp
 }
 
-# Check if the persistent container does NOT exist
-if ! docker ps -a --format "table {{.Names}}" | grep -q "^$CONTAINER_NAME$"; then
-    echo "Persistent container does not exist. Creating new container and cloning repo..."
-    
-    # Create and start a new persistent container
-    docker run -d --name $CONTAINER_NAME --user root:root --entrypoint sh $IMAGE_NAME -c "while true; do sleep 1; done"
-    
-    # Wait for the container to start
-    if ! wait_for_container; then
-        exit 1
-    fi
-    
-    # Small delay to ensure container is fully ready
-    sleep 2
-    
-    # Install dependencies and clone the repo
-    echo "Installing dependencies and cloning repository..."
-    docker exec $CONTAINER_NAME sh -c "apk add --no-cache nodejs npm git"
-    docker exec $CONTAINER_NAME sh -c "git clone $REPO_URL /src"
-    docker exec $CONTAINER_NAME sh -c "cd /src && git config --global --add safe.directory /src"
+# Trap to stop container on script exit (including errors)
+trap 'echo "Stopping container on exit..."; docker stop $CONTAINER_NAME >/dev/null 2>&1 || true' EXIT
+
+# Main logic
+if ! container_exists; then
+    setup_new_container
 fi
 
-# Check if container is NOT running
-if ! docker ps --format "table {{.Names}}\t{{.Status}}" | grep -q "^$CONTAINER_NAME.*Up"; then
-    echo "Container exists but not running. Starting it..."
-    docker start $CONTAINER_NAME
-    
-    # Wait for container to start
-    if ! wait_for_container; then
-        exit 1
-    fi
-else
-    echo "Container is running."
-fi
-
+start_container
 perform_build
+sync_build_output
 
-# Clean up existing public-temp on host if it exists
-rm -rf ./public-temp
-
-# Copy only the /public folder back to a temp dir on host
-echo "Copying built public folder to temp dir..."
-docker cp $CONTAINER_NAME:/src/public ./public-temp
-
-# Sync temp to live public using rsync with delete
-echo "Syncing temp to public (atomic update)..."
-rsync -a --delete ./public-temp/ ./public/
-
-# Remove the temp dir
-rm -rf ./public-temp
-
-# Stop the container after build
-echo "Stopping container after build..."
-docker stop $CONTAINER_NAME
+# Trap will handle stopping the container
 
 echo "Build complete!"
 echo "Note: Container '$CONTAINER_NAME' is stopped but preserved for future builds."

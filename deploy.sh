@@ -1,60 +1,86 @@
 #!/bin/bash
 
-# Exit on any error
-set -e
+# Secure deployment script for Hugo site:
+# Pulls latest changes from main, checks for updates, and runs build if changed.
+# Refactored for better error handling, modularity, and safety.
+
+set -euo pipefail  # Exit on error, undefined vars, and pipe failures
 
 cd "$(dirname "$0")"
 
 echo "Changed to directory: $(pwd)"
 
-# Check if we're in a git repository
-if [ ! -d ".git" ]; then
-    echo "Error: Not in a git repository"
-    exit 1
-fi
+# Constants
+MAIN_BRANCH="main"
+BUILD_SCRIPT="build_site.sh"
 
-# Get the current branch
-CURRENT_BRANCH=$(git branch --show-current)
-echo "Current branch: $CURRENT_BRANCH"
+# Function to check if in git repo
+check_git_repo() {
+    if [ ! -d ".git" ]; then
+        echo "Error: Not in a git repository"
+        exit 1
+    fi
+}
 
-# Check if we're on main branch
-if [ "$CURRENT_BRANCH" != "main" ]; then
-    echo "Warning: Not on main branch. Current branch is: $CURRENT_BRANCH"
-    read -p "Do you want to continue anyway? (y/N): " -n 1 -r
+# Function to get current branch
+get_current_branch() {
+    git branch --show-current
+}
+
+# Function to confirm continuation
+confirm_continue() {
+    local prompt="$1"
+    read -p "$prompt (y/N): " -n 1 -r
     echo
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         echo "Deployment cancelled"
         exit 1
     fi
-fi
+}
 
-# Store the current commit hash before pulling
-OLD_COMMIT=$(git rev-parse HEAD)
-echo "Current commit: $OLD_COMMIT"
+# Function to pull latest changes
+pull_changes() {
+    echo "Pulling latest changes from remote origin $MAIN_BRANCH..."
+    git pull origin "$MAIN_BRANCH"
+}
 
-# Pull the latest changes
-echo "Pulling latest changes from remote..."
-git pull origin main
+# Function to run build if changed
+run_build_if_changed() {
+    local old_commit="$1"
+    local new_commit=$(git rev-parse HEAD)
+    echo "New commit: $new_commit"
 
-# Get the new commit hash
-NEW_COMMIT=$(git rev-parse HEAD)
-echo "New commit: $NEW_COMMIT"
-
-# Check if there were any changes
-if [ "$OLD_COMMIT" != "$NEW_COMMIT" ]; then
-    echo "Changes detected! Running build script..."
-    
-    # Check if build_site.sh exists
-    if [ -f "build_site.sh" ]; then
-        echo "Executing build_site.sh..."
-        chmod +x build_site.sh
-        ./build_site.sh
+    if [ "$old_commit" != "$new_commit" ]; then
+        echo "Changes detected! Running build script..."
+        
+        if [ -f "$BUILD_SCRIPT" ]; then
+            echo "Executing $BUILD_SCRIPT..."
+            chmod +x "$BUILD_SCRIPT"
+            ./"$BUILD_SCRIPT"
+        else
+            echo "Error: $BUILD_SCRIPT not found in $(pwd)"
+            exit 1
+        fi
     else
-        echo "Error: build_site.sh not found in $(pwd)"
-        exit 1
+        echo "No changes detected. Build script not executed."
     fi
-else
-    echo "No changes detected. Build script not executed."
+}
+
+# Main logic
+check_git_repo
+
+current_branch=$(get_current_branch)
+echo "Current branch: $current_branch"
+
+if [ "$current_branch" != "$MAIN_BRANCH" ]; then
+    echo "Warning: Not on $MAIN_BRANCH branch. Pulling from origin $MAIN_BRANCH may affect your current branch."
+    confirm_continue "Do you want to continue anyway?"
 fi
+
+old_commit=$(git rev-parse HEAD)
+echo "Current commit: $old_commit"
+
+pull_changes
+run_build_if_changed "$old_commit"
 
 echo "Deployment script completed successfully!"
