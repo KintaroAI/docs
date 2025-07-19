@@ -44,13 +44,13 @@ echo "New commit: $NEW_COMMIT"
 if [ "$OLD_COMMIT" != "$NEW_COMMIT" ]; then
     echo "Changes detected! Running build script..."
     
-    # Check if build_site_run.sh exists
-    if [ -f "build_site_run.sh" ]; then
-        echo "Executing build_site_run.sh..."
-        chmod +x build_site_run.sh
-        ./build_site_run.sh
+    # Check if build_site.sh exists
+    if [ -f "build_site.sh" ]; then
+        echo "Executing build_site.sh..."
+        chmod +x build_site.sh
+        ./build_site.sh
     else
-        echo "Error: build_site_run.sh not found in $(pwd)"
+        echo "Error: build_site.sh not found in $(pwd)"
         exit 1
     fi
 else

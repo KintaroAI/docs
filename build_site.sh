@@ -55,23 +55,8 @@ wait_for_container() {
     return 1
 }
 
-# Check if the persistent container exists
-if docker ps -a --format "table {{.Names}}" | grep -q "^$CONTAINER_NAME$"; then
-    echo "Persistent container exists. Checking if it's running..."
-    
-    # Check if container is NOT running
-    if ! docker ps --format "table {{.Names}}\t{{.Status}}" | grep -q "^$CONTAINER_NAME.*Up"; then
-        echo "Container exists but not running. Starting it..."
-        docker start $CONTAINER_NAME
-        
-        # Wait for container to start
-        if ! wait_for_container; then
-            exit 1
-        fi
-    else
-        echo "Container is running."
-    fi
-else
+# Check if the persistent container does NOT exist
+if ! docker ps -a --format "table {{.Names}}" | grep -q "^$CONTAINER_NAME$"; then
     echo "Persistent container does not exist. Creating new container and cloning repo..."
     
     # Create and start a new persistent container
@@ -90,6 +75,19 @@ else
     docker exec $CONTAINER_NAME sh -c "apk add --no-cache nodejs npm git"
     docker exec $CONTAINER_NAME sh -c "git clone $REPO_URL /src"
     docker exec $CONTAINER_NAME sh -c "cd /src && git config --global --add safe.directory /src"
+fi
+
+# Check if container is NOT running
+if ! docker ps --format "table {{.Names}}\t{{.Status}}" | grep -q "^$CONTAINER_NAME.*Up"; then
+    echo "Container exists but not running. Starting it..."
+    docker start $CONTAINER_NAME
+    
+    # Wait for container to start
+    if ! wait_for_container; then
+        exit 1
+    fi
+else
+    echo "Container is running."
 fi
 
 perform_build
