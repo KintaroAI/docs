@@ -3,6 +3,7 @@
 # This script builds the Hugo site inside a Docker container without bind mounts.
 # It creates a persistent container that clones the repo once, then reuses it for subsequent builds.
 # Uses rsync for atomic update to avoid issues if serving from /public.
+# Improved to stop the container after each build, starting it only when needed.
 
 cd "$(dirname "$0")"
 echo "Starting secure Hugo DocSy build..."
@@ -106,6 +107,11 @@ rsync -a --delete ./public-temp/ ./public/
 # Remove the temp dir
 rm -rf ./public-temp
 
+# Stop the container after build
+echo "Stopping container after build..."
+docker stop $CONTAINER_NAME
+
 echo "Build complete!"
-echo "Note: Container '$CONTAINER_NAME' is kept running for future builds."
+echo "Note: Container '$CONTAINER_NAME' is stopped but preserved for future builds."
+echo "It will be started automatically on the next build."
 echo "To remove the container, run: docker rm -f $CONTAINER_NAME"
