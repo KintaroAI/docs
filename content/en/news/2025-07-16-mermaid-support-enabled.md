@@ -81,6 +81,6 @@ classDiagram
 
 ## Try It Out
 
-You can use Mermaid diagrams in your Markdown content by wrapping the code in triple backticks with `mermaid` as the language. See the [Mermaid documentation](https://mermaid-js.github.io/mermaid/) for more diagram types and syntax.
+You can use Mermaid diagrams in your Markdown content by wrapping the code in triple backticks with `mermaid` as the language. See the [Mermaid documentation](https://mermaid-js.github.io/mermaid/) and [examples](https://mermaid.live/edit#) for more diagram types and syntax.
 
 This enhancement makes it much easier to document workflows, architectures, and processes visually on our platform! 
