@@ -13,7 +13,12 @@ if [ -f .hugo_build.lock ]; then
     rm -f .hugo_build.lock
 fi
 
-IMAGE_NAME="floryn90/hugo:ext-alpine"
+IMAGE_NAME="hugo-docsy-dev"
+
+docker build -t "$IMAGE_NAME" .
+
+USER_ID=$(id -u)
+GROUP_ID=$(id -g)
 
 # Run Hugo development server
 docker run --rm \
@@ -21,6 +26,6 @@ docker run --rm \
   --publish 1313:1313 \
   --workdir /src \
   --entrypoint sh \
-  --user root:root \
-  -it floryn90/hugo:ext-alpine \
-  -c "apk add --no-cache nodejs npm git && git config --global --add safe.directory /src && hugo server --bind 0.0.0.0 --port 1313" 
+  --user $USER_ID:$GROUP_ID \
+  -it "$IMAGE_NAME" \
+  -c "npm install && hugo server --bind 0.0.0.0 --port 1313"
