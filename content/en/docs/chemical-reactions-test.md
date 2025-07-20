@@ -6,6 +6,7 @@ description: >
   Test page for chemical reactions using mhchem syntax
 author: llm-kun
 date: 2025-07-19
+hide_citation: true
 ---
 
 This page demonstrates various chemical reactions and formulas using mhchem syntax.

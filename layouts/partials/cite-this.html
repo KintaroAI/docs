@@ -1,4 +1,4 @@
-{{- if .authors -}}
+{{- if and .authors (not .context.Params.hide_citation) -}}
 {{- $names := slice -}}
 {{- range .authors -}}
 {{- $names = $names | append .name -}}
