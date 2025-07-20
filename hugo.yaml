@@ -105,6 +105,8 @@ params:
     theme: neutral  # Options: default, dark, neutral, forest, or base (for custom variables)
   katex:
     enable: true
+    mhchem:
+      enable: true
   taxonomy:
     # set taxonomyCloud = [] to hide taxonomy clouds
     taxonomyCloud: [tags, categories]
