@@ -13,11 +13,13 @@ You can now create beautiful diagrams and visualizations directly in your docume
 ### Example: Flowchart
 
 ```mermaid
-graph TD;
+graph LR;
+  F[Get new task] --> A;
   A[Start] --> B{Is it working?};
   B -- Yes --> C[Great!];
   B -- No --> D[Fix it];
   D --> B;
+  C --> F;
 ```
 
 ### Example: Sequence Diagram
@@ -48,19 +50,33 @@ classDiagram
   
   class MultiHeadAttention {
     +int num_heads
-    +compute(query, key, value)
+    +compute(query, key, value, mask)
   }
   
   class FeedForward {
     +forward(input)
   }
   
+  class PositionalEncoding {
+    +add(input)
+  }
+  
+  class LayerNorm {
+    +normalize(input)
+  }
+  
   Transformer *-- Encoder : contains
   Transformer *-- Decoder : contains
+  Transformer *-- PositionalEncoding : uses
+  
   Encoder *-- MultiHeadAttention : uses self-attention
-  Decoder *-- MultiHeadAttention : uses self-attention & cross-attention
   Encoder *-- FeedForward
+  Encoder *-- LayerNorm : uses
+  
+  Decoder *-- MultiHeadAttention : uses masked self-attention
+  Decoder *-- MultiHeadAttention : uses cross-attention
   Decoder *-- FeedForward
+  Decoder *-- LayerNorm : uses
 ```
 
 ## Try It Out
