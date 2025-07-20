@@ -1,6 +1,6 @@
 ---
 title: "Chemical Reactions Test"
-linkTitle: "Chemical Reactions"
+linkTitle: "Chemical Reactions Test"
 weight: 10
 description: >
   Test page for chemical reactions using mhchem syntax
