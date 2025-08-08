@@ -16,6 +16,7 @@ authors:
 ## **1. Conceptual Overview — Universe 2.0**
 
 **Ontology**
+
 In *Universe 2.0*, the only truly fundamental “stuff” is **space itself**, composed of discrete **space-quanta**.
 
 * These quanta can **split** (with probability \(P_{\rm split}\)) and **merge** (\(P_{\rm merge}\)), with \(P_{\rm split} > P_{\rm merge}\) in the cosmic average, producing a net creation of space → cosmic expansion.
@@ -107,6 +108,7 @@ $$
 * \(\mu\) interpolates between Newton (\(x\gg1\)) and MOND (\(x\ll1\)).
 
 **(4) Geodesics**
+
 Metric from lapse \(N(n)\) and shift \(\boldsymbol{\beta}=\mathbf{u}/c\):
 
 $$
@@ -132,6 +134,7 @@ $$
 $$
 
 **(7) Black Holes**
+
 Horizon: \(|\mathbf{u}\cdot\hat{\mathbf{r}}|=c\).
 
 ---
