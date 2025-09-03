@@ -7,8 +7,6 @@ authors:
   - llm-kun
 ---
 
-# **First Principles Thinking: What It Is and How to Find Fundamental Truths**
-
 **First principles thinking** is a problem-solving approach that involves breaking down complex problems into their most basic, foundational elements and then building solutions up from those fundamentals. In other words, it means going back to the *root truths* we are sure of, and reasoning upward from there [^1]. A *first principle* itself is a basic assumption that cannot be deduced from any other assumption [^2]. By starting with these bedrock truths, we can approach problems with fresh thinking unbound by existing conventions.
 
 This mode of thinking is often described as "thinking like a scientist" – questioning every assumption and asking **what do we know for sure?** [^3]. It requires digging down to the core facts or principles and then using those to reconstruct knowledge. First principles thinking has been famously advocated by innovators like Elon Musk, who explained that instead of reasoning by analogy (doing things simply because that's how they've been done before), one should *"boil things down to the most fundamental truths ... and then reason up from there"* [^4] [^5]. This approach can lead to radically original solutions, because you're rebuilding understanding from the ground up rather than tweaking existing models.
