@@ -3,7 +3,7 @@ title: KintaroAI
 ---
 {{< blocks/cover image_anchor="top" height="full" >}}
 <h1 class="display-1 mt-0 mt-md-5 pb-4">
-  <b><span style="color: #FF6B6B;">KintaroAI</span> is building the <span style="color: #4ECDC4;">future</span> of <span style="color: #45B7D1;">intelligent</span> tbd with <span style="color: #96CEB4;">advanced</span> AI-powered <span style="color: #FFEAA7;">tbds</span></b>.
+  <b><span style="color: #FF6B6B;">KintaroAI</span> is building the <span style="color: #4ECDC4;">future</span> of <span style="color: #45B7D1;">intelligent</span> tbd with <span style="color: #96CEB4;">advanced</span> AI-<span style="color: #FF6B6B;">powered</span> <span style="color: #FFEAA7;">tbds</span></b>.
 </h1>
 <a class="btn btn-lg btn-primary me-3 mb-4" href="/docs/">
   Learn More <i class="fas fa-arrow-alt-circle-right ms-2"></i>
