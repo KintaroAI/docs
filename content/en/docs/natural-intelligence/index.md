@@ -1,8 +1,8 @@
 ---
 title: "Artificial General Intelligence Concept"
 weight: 2
-description: >
-  Emergent Intelligence through Thalamus-Cortex Loops.
+author: baraban
+description: Emergent Intelligence through Thalamus-Cortex Loops.
 ---
 
 ## Introduction: Intelligence as Prediction in Time
@@ -11,13 +11,27 @@ description: >
 
 ## Overview of the Proposed Intelligence Structure
 
-To understand natural intelligence (and inspire artificial general intelligence), we can outline a two-principle architecture derived from how the brain processes sensory information. In simple terms, the brain uses a **hub** to organize incoming signals and a **structured cortex** to recognize patterns. Below is a diagram illustrating the overall structure of this idea:
+To understand natural intelligence (and inspire artificial general intelligence), we can outline a two-principle architecture derived from how the brain processes sensory information. In simple terms, the brain uses thalamus as a **hub** to sort incoming signals and a **structured cortex** to recognize patterns. Below is a diagram illustrating the overall structure of this idea:
 
 ![NGI - Natural General Intelligence](ngi-v2.png)
 
-As shown above, all sensory inputs (vision, hearing, touch, etc.) feed into the **thalamus**, which acts as a central relay and sorting hub. The thalamus projects organized signals to the **neocortex** (the six-layered cerebral cortex), where they are processed in cortical columns – functional units that detect patterns – and the results are sent onward. Notably, the output of one cortical area **loops back** into the thalamus and is treated as new input for higher cortical areas. This pattern can repeat over multiple cycles (layers), and related information from different senses eventually converges in integration areas of the cortex. In the sections below, we delve into the reasoning behind this architecture and describe the roles of the thalamus and neocortex in more detail.
+## The Thalamus-Cortex Loop: A Unified Processing Circuit
 
-Importantly, this overall architecture effectively implements a **predictive processing loop**: the brain continuously compares incoming events with learned patterns to anticipate what comes next. Intelligence, in this view, emerges from this constant cycle of organizing sensory input and making continuous predictions in time.
+A central proposal in our model is that the brain’s core algorithm relies on a **recurrent loop between the thalamus and the neocortex**, rather than a simple feed-forward stack of layers. The **thalamus** serves as a hub that **receives both raw sensory data and cortical feedback at the same time, without distinguishing between them**. From the thalamus’s perspective, there is no flag marking whether a signal came from the retina or from V2 — they all arrive as part of the same undifferentiated stream of activity. In other words, **the thalamus treats all incoming activity as one continuous flow of “events” in time**.
+
+What the thalamus does is **sort and organize these mixed signals according to their correlations**, grouping synchronous or highly related events together. (One can think of this as building a correlation matrix of neuronal inputs, much like a transformer’s self-attention map, where statistical coherence in time drives the arrangement.) The result is a **topographically structured output**, where neurons that carry strongly correlated information end up mapped closer together in the thalamic output projection.
+
+This **organized output is then sent to the neocortex**, which interprets, categorizes, and abstracts the patterns. Importantly, the cortex then **sends its results back into the thalamus as feedback**, but the thalamus doesn’t treat them as different in kind from sensory input — it integrates them into the same pool. For this reason, we call cortical outputs “*higher-order sensory input*.” The loop thus runs continuously: thalamus → cortex → thalamus, with each cycle mixing new external events with the cortex’s latest interpretations. Because the thalamus does not know or care whether a signal originated in the outside world or the cortex, the sorting process gradually **generalizes** the brain’s structure: low-level sensory streams eventually require little sorting, while higher-order abstract signals in cognitive areas undergo extensive integration over long periods of time.
+
+## Hierarchical Areas as an Emergent Property (Not Hardwired Layers)
+
+An important consequence of this loop is that **the classical hierarchy of brain areas (V1, V2, V3, A1, etc.) can emerge dynamically**, not from a fixed, pre-wired design. As the system cycles, the thalamus’s correlation-based sorting naturally clusters related signals. For instance, visual inputs (both direct retinal activity and cortical visual feedback) will tend to end up grouped together in thalamic output space, and the same for auditory inputs. Over time, this leads to the familiar **separation of modalities** in cortical maps, with higher-order integrative areas forming where modalities consistently converge.
+
+![Hierarchical Areas](areas.png)
+
+What looks like a cortical hierarchy — V1, V2, V3, etc. — is in this view **an emergent organization**. Each cortical region specializes not because it occupies a fixed rung in a ladder, but because the thalamus sorted inputs in such a way that that region consistently receives certain correlated patterns. Those regions then learn to process those signals efficiently, returning their abstracted results to the thalamus. The thalamus mixes those high-level “predictions” or features with new sensory events, again sorting the whole pool into a coherent map.
+
+Because the **sorting is fundamentally temporal**, cross-modal associations can emerge when different signals consistently occur in close sequence. If a particular visual cue and a sound repeatedly co-occur, the thalamus may position them adjacently in its output (i.e. V4 + A2), prompting the cortex to learn a combined representation. Over many cycles, this mechanism naturally builds **hierarchical and cross-modal associations**, not as a static architecture but as the statistical outcome of a system trying to predict sequences of events in time.
 
 ## Fundamental Principle 1: The Thalamus as a Signal-Sorting Hub
 
