@@ -1,10 +1,10 @@
 ---
 title: Definition of Intelligence
-weight: 1
+weight: 2
 author: baraban
 ---
 
-## Intelligence is an emergent property of a system that is trying to predict the future.
+## Intelligence is an emergent property of a system that is trying to predict the future
 {.text-center}
 
 In other words, intelligence arises as a mechanism to improve an entity’s ability to anticipate what comes next. From this definition, we can draw several key implications about intelligence:

@@ -1,6 +1,6 @@
 ---
 title: "Artificial General Intelligence Concept"
-weight: 2
+weight: 3
 author: baraban
 description: Emergent Intelligence through Thalamus-Cortex Loops.
 ---
