@@ -18,7 +18,7 @@ We can outline the principles we’ll use in AGI research and development:
 
 ## Simplicity and Robustness
 
-* Given evolution’s limitations, our core algorithm should be extremely simple and error-resistant.
+* Given evolution's limitations, nature's core intelligence algorithm should be extremely simple and error-resistant.
 
 * We don’t *have* to use a spiking neural network; we could adapt a transformer architecture or invent something new. But let’s start with something promising and conceptually close to natural intelligence to get going quickly.
 
@@ -49,13 +49,13 @@ Our goal is to set up the right “rules of the game” and environment and see 
 
 ## Continuous Learning
 
-* Learning never stops. It happens locally through the interaction of two neurons at a time (no global back-propagation).
+* Learning never stops. It happens locally through the interaction of two neurons at a time (no global back-propagation, no fully connected layers).
 
 * Again, we’ll ignore monoamine neurotransmitters for now, until we absolutely have to incorporate them.
 
 ## Evolving a Single Model
 
-* We’ll design our AGI so it can improve incrementally. That means gradually tweaking neuron parameters and adding or removing neurons over time, while keeping the existing structure intact. In other words, we’re continuously training one evolving model, rather than throwing it away when we change layer counts or parameters.
+* We’ll design our AGI so it can improve incrementally. That means gradually tweaking neuron parameters and adding or removing neurons over time, while keeping the existing structure intact. In other words, we’re continuously training one evolving model, rather than throwing it away once we decide to change layer counts or parameters.
 
 * Essentially, we’re trying to *grow* human-level AGI starting from a very simple (bee-level) AGI, rather than building a brand-new model each time we make a change.
 
@@ -69,11 +69,15 @@ Our goal is to set up the right “rules of the game” and environment and see 
 
 * Assemble a minimal training dataset roughly equal to the information a person absorbs in 18 years.
 
-* Use real-time video and audio (like camera/microphone feeds). Estimate how many books (classics, sci-fi/fantasy, textbooks) a bright person reads over 18 years and how many conversations they have. It might not be as massive as we think once we quantify it.
+* Use real-time video and audio (like camera/microphone feeds) or simulations during the research. Estimate how many books (classics, sci-fi/fantasy, textbooks) a bright person reads over 18 years and how many conversations they have. It might not be as massive as we think once we quantify it.
 
 ## Brain Structures
 
 * Start by building artificial thalamus and neocortex components as the core brain structures for our AGI.
+
+## Open-Source Research
+
+* The entire research process will be open-source, most probably under the Apache 2.0 license (or MIT, not sure which one is better). This ensures transparency, allows for community collaboration, and prevents any single entity from controlling the development of AGI.
 
 ## Thinking Beyond AGI
 
