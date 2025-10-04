@@ -135,6 +135,61 @@ In the command above, we used the environment variable `HUGO_MODULE_WORKSPACE` t
 
 Your project's `hugo.toml` file already contains these lines, the directive for workspace assignment is commented out, however. Remove the two trailing comment characters '//' so that this line takes effect.
 
+## Adding New Modules and Updating Dependencies
+
+### Adding a new module
+
+To add a new Hugo module to the project:
+
+1. Add the module to your `hugo.yaml` or `hugo.toml` configuration file in the `[module]` section under `[[module.imports]]`:
+
+```yaml
+[[module.imports]]
+path = "github.com/username/repository"
+```
+
+2. Add the module as a git submodule:
+
+```bash
+git submodule add https://github.com/username/repository.git assets/vendor/module-name
+```
+
+3. Update and merge the submodule:
+
+```bash
+git submodule update --remote --merge
+```
+
+4. Commit the changes:
+
+```bash
+git add .
+git commit -m "Add new module: module-name"
+```
+
+### Updating dependencies
+
+To update all Hugo modules and submodules to their latest versions:
+
+1. Update Hugo modules:
+
+```bash
+hugo mod get -u
+```
+
+2. Update all git submodules:
+
+```bash
+git submodule update --remote --merge
+```
+
+3. Commit the updates:
+
+```bash
+git add .
+git commit -m "Update dependencies"
+```
+
 ## Troubleshooting
 
 As you run the website locally, you may run into the following error:
