@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Secure deployment script for Hugo site:
-# Pulls latest changes from main, checks for updates, and runs build if changed.
+# Pulls latest changes from main, updates git submodules, checks for updates, and runs build if changed.
 # Refactored for better error handling, modularity, and safety.
 # Updated to use compatible git command for getting current branch (works on Git < 2.22).
 
@@ -45,6 +45,12 @@ pull_changes() {
     git pull origin "$MAIN_BRANCH"
 }
 
+# Function to update git submodules
+update_submodules() {
+    echo "Updating git submodules..."
+    git submodule update --init --recursive
+}
+
 # Function to run build if changed
 run_build_if_changed() {
     local old_commit="$1"
@@ -82,6 +88,7 @@ old_commit=$(git rev-parse HEAD)
 echo "Current commit: $old_commit"
 
 pull_changes
+update_submodules
 run_build_if_changed "$old_commit"
 
 echo "Deployment script completed successfully!"
