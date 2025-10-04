@@ -2,6 +2,7 @@
 # Secure local builder for Hugo DocSy:
 # This script builds the Hugo site inside a Docker container without bind mounts.
 # It creates a persistent container that clones the repo once, then reuses it for subsequent builds.
+# Pulls latest changes, updates git submodules, and builds the site.
 # Uses rsync for atomic update to avoid issues if serving from /public.
 # Improved to stop the container after each build, starting it only when needed.
 # Refactored for better error handling, modularity, and robustness.
@@ -92,6 +93,9 @@ perform_build() {
     
     # Pull latest changes
     docker exec $CONTAINER_NAME sh -c "cd /src && git pull origin main"
+    
+    # Update git submodules
+    docker exec $CONTAINER_NAME sh -c "cd /src && git submodule update --init --recursive"
     
     # Install/update npm dependencies
     docker exec $CONTAINER_NAME sh -c "cd /src && npm install"
