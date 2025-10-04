@@ -1,0 +1,3 @@
+[submodule "assets/vendor/blocks"]
+	path = assets/vendor/blocks
+	url = https://github.com/KintaroAI/blocks.git
