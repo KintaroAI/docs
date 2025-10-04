@@ -1,0 +1,4 @@
+{{ $blocksCSS := resources.Get "vendor/blocks/blocks_lib.css" | resources.Minify | resources.Fingerprint }}
+{{ $blocksJS  := resources.Get "vendor/blocks/blocks_lib.js"  | resources.Minify | resources.Fingerprint }}
+<link rel="stylesheet" href="{{ $blocksCSS.RelPermalink }}">
+<script src="{{ $blocksJS.RelPermalink }}"></script>
