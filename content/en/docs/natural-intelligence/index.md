@@ -31,7 +31,7 @@ To understand natural intelligence (and inspire artificial general intelligence)
     { "id": "Motor", "x": 520, "y": 480, "w": 220, "h": 70, "label": "Motor\nNeurons" },
     { "id": "Bar1", "x": 430, "y": 320, "w": 220, "h": 22, "label": "", "note": true },
     { "id": "Bar2", "x": 430, "y": 360, "w": 220, "h": 22, "label": "", "note": true },
-    { "id": "NoteTopo", "x": 250, "y": 50, "w": 220, "h": 28, "label": "Topographically sorted signal", "note": true },
+    { "id": "NoteTopo", "x": 250, "y": 50, "w": 240, "h": 28, "label": "Topographically sorted signal", "note": true },
     { "id": "NoteRL", "x": 524, "y": 29, "w": 260, "h": 40, "label": "Reinforcement Learning\n(modulatory signal)", "note": true },
     { "id": "NoteHO", "x": 228, "y": 273, "w": 250, "h": 26, "label": "Higher-Order Sensory Input", "note": true },
     { "id": "NoteSI", "x": 234, "y": 400, "w": 160, "h": 26, "label": "Sensory Input", "note": true }
