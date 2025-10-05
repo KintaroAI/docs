@@ -63,7 +63,9 @@ hide_citation: true
     const rnd = () => Math.random();
 
     // collect connections here (not necessary, but mirrors structure)
-    const add = (opts) => b.connect(opts);
+    const add = (opts) => {
+        b.connect({ ...opts, emitter: true, emitMult: 0.1, maxLive: 0 });
+    }
 
     // --- Sensory input: Ear/Eye/Skin/Movement -> Thalamus (left) with offsets & randomized end t ---
     for (const t of [-0.4, 0.0, 0.4]) {
