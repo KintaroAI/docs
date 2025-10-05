@@ -13,7 +13,99 @@ description: Emergent Intelligence through Thalamus-Cortex Loops.
 
 To understand natural intelligence (and inspire artificial general intelligence), we can outline a two-principle architecture derived from how the brain processes sensory information. In simple terms, the brain uses thalamus as a **hub** to sort incoming signals and a **structured cortex** to recognize patterns. Below is a diagram illustrating the overall structure of this idea:
 
-![NGI - Natural General Intelligence](ngi-v2.png)
+
+<style>
+    #general-intelligence-diagram { height: 640px; }
+</style>
+
+<p id="general-intelligence-diagram" class="canvas"></p>
+
+
+<script>
+  // Diagram — Thalamus/Cortex/Monoamine with debug mode enabled
+  run_blocks("#general-intelligence-diagram", (b) => {
+    // Same diagram as before, but with debug enabled
+    const c = b.colors;
+
+    // Top row
+    b.addBlock("Thal",   120, 140, 220, 70, "Thalamus");
+    b.addBlock("Ctx",    380, 140, 240, 70, "Cortex");
+    b.addBlock("MA",     670, 140, 260, 70, "Monoamine\nNeurons");
+
+    // Bottom row
+    b.addBlock("Sens",   120, 480, 220, 70, "Sensory\nNeurons");
+    b.addBlock("Motor",  520, 480, 220, 70, "Motor\nNeurons");
+
+    // Two central pathway bars (thin unlabeled)
+    b.addBlock("Bar1",   430, 320, 220, 22, "", { note: true });
+    b.addBlock("Bar2",   430, 360, 220, 22, "", { note: true });
+    // Make the bars look like white slats (lighter than nodes)
+    for (const id of ["Bar1","Bar2"]) {
+      const blk = b.block(id);
+      blk.rect.setAttribute("fill", "#e6ebf0");
+      blk.rect.setAttribute("stroke", "none");
+      blk.text.style.display = "none";
+    }
+
+    // ----- Notes / labels (topmost) -----
+    const nTopo = b.addBlock("NoteTopo", 250, 50, 220, 28, "Topographically sorted signal", { note: true });
+    const nRL   = b.addBlock("NoteRL",   524, 29, 260, 40, "Reinforcement Learning\n(modulatory signal)", { note: true });
+    const nHO   = b.addBlock("NoteHO",    228, 273, 250, 26, "Higher-Order Sensory Input", { note: true });
+    const nSI   = b.addBlock("NoteSI",    234, 400, 160, 26, "Sensory Input", { note: true });
+    // Make note blocks text-only (no rectangle box)
+    for (const id of ["NoteTopo","NoteRL","NoteHO","NoteSI"]) {
+      const nb = b.block(id);
+      nb.rect.setAttribute("fill", "none");
+      nb.rect.setAttribute("stroke", "none");
+    }
+
+    // ----- Arcs/loops on the top row -----
+    // Thalamus -> Cortex (topo loop)
+    b.connect({
+      start:{ block:"Thal", edge:"top", t:  0.22 },
+      end:  { block:"Ctx",  edge:"top", t: -0.22 },
+      width:3, sparks:3, sparkSpeed:0.7, color: c.arrow
+    });
+    // Cortex -> Thalamus (return on same loop)
+    b.connect({
+      start:{ block:"Ctx",  edge:"bottom", t: -0.22 },
+      end:  { block:"Thal", edge:"bottom", t: 0.22 },
+      width:3, sparks:3, sparkSpeed:0.7, color: c.arrow
+    });
+
+    // Cortex <-> Monoamine (modulatory RL loop)
+    b.connect({
+      start:{ block:"Ctx", edge:"bottom", t:  0.22 },
+      end:  { block:"MA",  edge:"bottom", t: -0.22 },
+      width:3, sparks:2, sparkSpeed:0.6, color: c.arrow
+    });
+    b.connect({
+      start:{ block:"MA",  edge:"top", t: -0.22 },
+      end:  { block:"Ctx", edge:"top", t: 0.22 },
+      width:3, sparks:2, sparkSpeed:0.6, color: c.arrow
+    });
+
+    // ----- Sensory side (left) -----
+    // Sensory Neurons -> Thalamus (vertical)
+    b.connect({
+      start:{ block:"Sens", edge:"top", t: 0 },
+      end:  { block:"Thal", edge:"bottom", t: -0.2 },
+      width:3, sparks:3, sparkSpeed:0.7, color:c.arrow
+    });
+
+    // ----- Motor pathway (downward from Cortex) -----
+    b.connect({ start:{block:"Ctx", edge:"bottom", t: -0.1}, end:{block:"Bar1", edge:"top", t: 0}, width:3, sparks:3, sparkSpeed:0.7, color:c.arrow });
+    b.connect({ start:{block:"Bar2", edge:"bottom", t: 0},   end:{block:"Motor", edge:"top", t: 0}, width:3, sparks:3, sparkSpeed:0.7, color:c.arrow });
+
+    // Bottom feedback: Motor -> Sensory (dashed arc)
+    const dashed = {className: "dash", color: c.arrow, width:3, sparks:3, sparkSpeed:0.7 };
+    b.connect({
+      ...dashed,
+      start:{ block:"Motor", edge:"left", t: 0.0 },
+      end:  { block:"Sens",  edge:"right", t: 0.0 }
+    });
+  }, { width: 1000, height: 640});
+</script>
 
 ## The Thalamus-Cortex Loop: A Unified Processing Circuit
 
