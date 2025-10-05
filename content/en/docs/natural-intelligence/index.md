@@ -21,90 +21,120 @@ To understand natural intelligence (and inspire artificial general intelligence)
 <p id="general-intelligence-diagram" class="canvas"></p>
 
 
+<script type="application/json" id="general-intelligence-diagram-spec">
+{
+  "blocks": [
+    { "id": "Thal", "x": 120, "y": 140, "w": 220, "h": 70, "label": "Thalamus" },
+    { "id": "Ctx", "x": 380, "y": 140, "w": 240, "h": 70, "label": "Cortex" },
+    { "id": "MA", "x": 670, "y": 140, "w": 260, "h": 70, "label": "Monoamine\nNeurons" },
+    { "id": "Sens", "x": 120, "y": 480, "w": 220, "h": 70, "label": "Sensory\nNeurons" },
+    { "id": "Motor", "x": 520, "y": 480, "w": 220, "h": 70, "label": "Motor\nNeurons" },
+    { "id": "Bar1", "x": 430, "y": 320, "w": 220, "h": 22, "label": "", "note": true },
+    { "id": "Bar2", "x": 430, "y": 360, "w": 220, "h": 22, "label": "", "note": true },
+    { "id": "NoteTopo", "x": 250, "y": 50, "w": 220, "h": 28, "label": "Topographically sorted signal", "note": true },
+    { "id": "NoteRL", "x": 524, "y": 29, "w": 260, "h": 40, "label": "Reinforcement Learning\n(modulatory signal)", "note": true },
+    { "id": "NoteHO", "x": 228, "y": 273, "w": 250, "h": 26, "label": "Higher-Order Sensory Input", "note": true },
+    { "id": "NoteSI", "x": 234, "y": 400, "w": 160, "h": 26, "label": "Sensory Input", "note": true }
+  ],
+  "connections": [
+    {
+      "start": { "block": "Thal", "edge": "top", "t": 0.22 },
+      "end": { "block": "Ctx", "edge": "top", "t": -0.22 },
+      "width": 3,
+      "sparks": 3,
+      "spark_speed": 0.7,
+      "color": "arrow"
+    },
+    {
+      "start": { "block": "Ctx", "edge": "bottom", "t": -0.22 },
+      "end": { "block": "Thal", "edge": "bottom", "t": 0.22 },
+      "width": 3,
+      "sparks": 3,
+      "spark_speed": 0.7,
+      "color": "arrow"
+    },
+    {
+      "start": { "block": "Ctx", "edge": "bottom", "t": 0.22 },
+      "end": { "block": "MA", "edge": "bottom", "t": -0.22 },
+      "width": 3,
+      "sparks": 2,
+      "spark_speed": 0.6,
+      "color": "arrow"
+    },
+    {
+      "start": { "block": "MA", "edge": "top", "t": -0.22 },
+      "end": { "block": "Ctx", "edge": "top", "t": 0.22 },
+      "width": 3,
+      "sparks": 2,
+      "spark_speed": 0.6,
+      "color": "arrow"
+    },
+    {
+      "start": { "block": "Sens", "edge": "top", "t": 0 },
+      "end": { "block": "Thal", "edge": "bottom", "t": -0.2 },
+      "width": 3,
+      "sparks": 3,
+      "spark_speed": 0.7,
+      "color": "arrow"
+    },
+    {
+      "start": { "block": "Ctx", "edge": "bottom", "t": -0.1 },
+      "end": { "block": "Bar1", "edge": "top", "t": 0 },
+      "width": 3,
+      "sparks": 3,
+      "spark_speed": 0.7,
+      "color": "arrow"
+    },
+    {
+      "start": { "block": "Bar2", "edge": "bottom", "t": 0 },
+      "end": { "block": "Motor", "edge": "top", "t": 0 },
+      "width": 3,
+      "sparks": 3,
+      "spark_speed": 0.7,
+      "color": "arrow"
+    },
+    {
+      "start": { "block": "Motor", "edge": "left", "t": 0.0 },
+      "end": { "block": "Sens", "edge": "right", "t": 0.0 },
+      "width": 3,
+      "sparks": 3,
+      "spark_speed": 0.7,
+      "color": "arrow",
+      "class": "dash"
+    }
+  ]
+}
+</script>
+
 <script>
   // Diagram — Thalamus/Cortex/Monoamine with debug mode enabled
   run_blocks("#general-intelligence-diagram", (b) => {
-    // Same diagram as before, but with debug enabled
-    const c = b.colors;
-
-    // Top row
-    b.addBlock("Thal",   120, 140, 220, 70, "Thalamus");
-    b.addBlock("Ctx",    380, 140, 240, 70, "Cortex");
-    b.addBlock("MA",     670, 140, 260, 70, "Monoamine\nNeurons");
-
-    // Bottom row
-    b.addBlock("Sens",   120, 480, 220, 70, "Sensory\nNeurons");
-    b.addBlock("Motor",  520, 480, 220, 70, "Motor\nNeurons");
-
-    // Two central pathway bars (thin unlabeled)
-    b.addBlock("Bar1",   430, 320, 220, 22, "", { note: true });
-    b.addBlock("Bar2",   430, 360, 220, 22, "", { note: true });
+    // Load the JSON specification
+    b.loadFromJSON("general-intelligence-diagram-spec");
+    
+    // Apply custom styling for note blocks and bars
     // Make the bars look like white slats (lighter than nodes)
     for (const id of ["Bar1","Bar2"]) {
       const blk = b.block(id);
-      blk.rect.setAttribute("fill", "#e6ebf0");
-      blk.rect.setAttribute("stroke", "none");
-      blk.text.style.display = "none";
+      if (blk) {
+        blk.rect.setAttribute("fill", "#e6ebf0");
+        blk.rect.setAttribute("stroke", "none");
+        blk.text.style.display = "none";
+      }
     }
 
-    // ----- Notes / labels (topmost) -----
-    const nTopo = b.addBlock("NoteTopo", 250, 50, 220, 28, "Topographically sorted signal", { note: true });
-    const nRL   = b.addBlock("NoteRL",   524, 29, 260, 40, "Reinforcement Learning\n(modulatory signal)", { note: true });
-    const nHO   = b.addBlock("NoteHO",    228, 273, 250, 26, "Higher-Order Sensory Input", { note: true });
-    const nSI   = b.addBlock("NoteSI",    234, 400, 160, 26, "Sensory Input", { note: true });
     // Make note blocks text-only (no rectangle box)
     for (const id of ["NoteTopo","NoteRL","NoteHO","NoteSI"]) {
       const nb = b.block(id);
-      nb.rect.setAttribute("fill", "none");
-      nb.rect.setAttribute("stroke", "none");
+      if (nb) {
+        nb.rect.setAttribute("fill", "none");
+        nb.rect.setAttribute("stroke", "none");
+      }
     }
-
-    // ----- Arcs/loops on the top row -----
-    // Thalamus -> Cortex (topo loop)
-    b.connect({
-      start:{ block:"Thal", edge:"top", t:  0.22 },
-      end:  { block:"Ctx",  edge:"top", t: -0.22 },
-      width:3, sparks:3, sparkSpeed:0.7, color: c.arrow
-    });
-    // Cortex -> Thalamus (return on same loop)
-    b.connect({
-      start:{ block:"Ctx",  edge:"bottom", t: -0.22 },
-      end:  { block:"Thal", edge:"bottom", t: 0.22 },
-      width:3, sparks:3, sparkSpeed:0.7, color: c.arrow
-    });
-
-    // Cortex <-> Monoamine (modulatory RL loop)
-    b.connect({
-      start:{ block:"Ctx", edge:"bottom", t:  0.22 },
-      end:  { block:"MA",  edge:"bottom", t: -0.22 },
-      width:3, sparks:2, sparkSpeed:0.6, color: c.arrow
-    });
-    b.connect({
-      start:{ block:"MA",  edge:"top", t: -0.22 },
-      end:  { block:"Ctx", edge:"top", t: 0.22 },
-      width:3, sparks:2, sparkSpeed:0.6, color: c.arrow
-    });
-
-    // ----- Sensory side (left) -----
-    // Sensory Neurons -> Thalamus (vertical)
-    b.connect({
-      start:{ block:"Sens", edge:"top", t: 0 },
-      end:  { block:"Thal", edge:"bottom", t: -0.2 },
-      width:3, sparks:3, sparkSpeed:0.7, color:c.arrow
-    });
-
-    // ----- Motor pathway (downward from Cortex) -----
-    b.connect({ start:{block:"Ctx", edge:"bottom", t: -0.1}, end:{block:"Bar1", edge:"top", t: 0}, width:3, sparks:3, sparkSpeed:0.7, color:c.arrow });
-    b.connect({ start:{block:"Bar2", edge:"bottom", t: 0},   end:{block:"Motor", edge:"top", t: 0}, width:3, sparks:3, sparkSpeed:0.7, color:c.arrow });
-
-    // Bottom feedback: Motor -> Sensory (dashed arc)
-    const dashed = {className: "dash", color: c.arrow, width:3, sparks:3, sparkSpeed:0.7 };
-    b.connect({
-      ...dashed,
-      start:{ block:"Motor", edge:"left", t: 0.0 },
-      end:  { block:"Sens",  edge:"right", t: 0.0 }
-    });
-  }, { width: 1000, height: 640});
+  }, { 
+    width: 1000, 
+    height: 640
+  });
 </script>
 
 ## The Thalamus-Cortex Loop: A Unified Processing Circuit
