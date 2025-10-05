@@ -28,8 +28,9 @@ git submodule update --remote --merge
 # Check if submodules were actually updated
 if ! git diff-index --quiet HEAD --; then
     echo "Submodules were updated. Committing changes..."
-    git add .
-    git commit -m "Updated submodules dependencies"
+
+    git commit -am "Updated submodules dependencies"
+
     echo "Changes committed successfully."
 else
     echo "No submodule updates found."
