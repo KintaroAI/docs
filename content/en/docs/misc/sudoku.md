@@ -8,8 +8,6 @@ date: 2025-10-09
 hide_citation: true
 ---
 
-{{ partial "sudoku.html" . }}
-
 # Sudoku demo
 
 <style>
@@ -34,7 +32,7 @@ hide_citation: true
     clickToSetAnswer: true,
     autoHints: true,
     correctValues: {
-      // Add correct values as needed
+      'R1C1': 1
     }
   });
 </script>
