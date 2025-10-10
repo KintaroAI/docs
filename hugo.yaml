@@ -218,3 +218,4 @@ module:
   imports:
     - path: github.com/google/docsy
       disable: false
+    - path: github.com/KintaroAI/sudoku
