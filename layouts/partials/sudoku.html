@@ -1,0 +1,4 @@
+{{ $sudokuCSS := resources.Get "vendor/sudoku/sudoku.css" | resources.Minify | resources.Fingerprint }}
+{{ $sudokuJS  := resources.Get "vendor/sudoku/sudoku.js"  | resources.Minify | resources.Fingerprint }}
+<link rel="stylesheet" href="{{ $sudokuCSS.RelPermalink }}">
+<script src="{{ $sudokuJS.RelPermalink }}"></script>

@@ -26,6 +26,7 @@
 		{{ end -}}
 	</header>
 	{{ partial "blocks.html" . }}
+	{{ partial "sudoku.html" . }}
 	{{ .Render "_td-content-after-header" -}}
 	{{ .Content }}
 	{{ if (.Site.Config.Services.Disqus.Shortname) -}}
