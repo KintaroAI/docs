@@ -63,17 +63,6 @@ hide_citation: true
     autosolver: false,
     clickToSetAnswer: true,
     autoHints: true,
-    correctValues: {
-      // Pre-filled puzzle (classic sudoku)
-      'R1C1': 5, 'R1C2': 3, 'R1C5': 7,
-      'R2C1': 6, 'R2C4': 1, 'R2C5': 9, 'R2C6': 5,
-      'R3C2': 9, 'R3C3': 8, 'R3C8': 6,
-      'R4C1': 8, 'R4C5': 6, 'R4C9': 3,
-      'R5C1': 4, 'R5C4': 8, 'R5C6': 3, 'R5C9': 1,
-      'R6C1': 7, 'R6C5': 2, 'R6C9': 6,
-      'R7C2': 6, 'R7C7': 2, 'R7C8': 8,
-      'R8C4': 4, 'R8C5': 1, 'R8C6': 9, 'R8C9': 5,
-      'R9C5': 8, 'R9C8': 7, 'R9C9': 9
-    }
+    correctValues: {}
   });
 </script>
