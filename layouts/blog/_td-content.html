@@ -26,13 +26,14 @@
 		{{ end -}}
 	</header>
 	{{ .Render "_td-content-after-header" -}}
+	{{ partial "blocks.html" . }}
+	{{ partial "sudoku.html" . }}
 	{{ .Content }}
 	{{ if (.Site.Config.Services.Disqus.Shortname) -}}
 		<br />
 		{{- partial "disqus-comment.html" . -}}
 		<br />
 	{{ end -}}
-
 	{{ partial "pager.html" . }}
 	{{ partial "page-meta-lastmod.html" . -}}
 	{{ partial "cite-this.html" (dict "authors" $compiledAuthors "context" .) }}
