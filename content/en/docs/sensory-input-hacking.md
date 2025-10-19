@@ -174,8 +174,6 @@ Neurons fire only when activity buys energy, safety, or future accuracy.
 
 ### 3) An objective that resists hacks
 
-### 3) An objective that resists hacks
-
 Optimize a long-horizon score that **binds prediction to exploration, energy, and survival**:
 
 $$
@@ -253,12 +251,197 @@ $$
 - **Good hack:** reduces volatility *and* improves future energy/option value (e.g., building shade before foraging).  
 - **Bad hack:** reduces volatility while draining energy or narrowing options (e.g., sensory insulation that avoids learning and slowly starves you).
 
-### 5) Minimal testbed (for demos & ablations)
+### 5) Minimal testbed (for demos, diagnostics & ablations)
 
-- **World:** 2D grid with stochastic food; safe zones (low threat/low food) vs. risky zones (high food/predators).  
-- **Actions:** move, forage, rest, build shelter (variance ↓, harvest rate ↓), self-stim (illusory reward, energy burn).  
-- **Brain:** predictive model with paid-per-update neurons and paid planning depth.  
-- **Metrics:** lifespan, average \(E_t\), cross-context transfer, fraction of time in self-chosen low-entropy states, and \(\eta\).
+A tiny yet expressive sandbox that makes “good vs. bad hacks” measurable.
+
+#### 5.1 World layout & dynamics
+
+- **Grid:** \(N\times N\) cells (e.g., \(N=21\)).  
+- **Zones:**
+  - **Safe zone \(Z_{\text{safe}}\):** low threat, **low food renewal**.
+  - **Risky zone \(Z_{\text{risk}}\):** predators present, **high food renewal**.
+  - **Shelter tiles:** buildable structures that **lower observation variance** but **throttle harvest** locally.
+- **Food field \(F_t(x)\):** stochastic birth–death process:
+  \[
+  F_{t+1}(x) \sim \text{Binomial}\!\left(F_{\max},\; p_{\text{grow}}(x)\right),\quad
+  p_{\text{grow}}(x)=
+  \begin{cases}
+  p_{\text{safe}} & x\in Z_{\text{safe}}\\
+  p_{\text{risk}} & x\in Z_{\text{risk}}
+  \end{cases}
+  \]
+  with \(p_{\text{risk}} > p_{\text{safe}}\).
+- **Predators:** Poisson arrivals in \(Z_{\text{risk}}\); contact drains energy or ends episode with probability \(p_{\text{death}}\).
+
+#### 5.2 State, actions, observations
+
+- **Hidden state \(s_t\):** agent pose, energy \(E_t\), local food \(F_t\), shelter map, predator positions (partially observed).  
+- **Action set \(a_t\in\{\text{move}_{\{\uparrow,\downarrow,\leftarrow,\rightarrow\}},\ \text{forage},\ \text{rest},\ \text{build\_shelter},\ \text{self\_stim}\}\).**  
+- **Observations \(o_t\):** local egocentric patch (e.g., \(5\times5\)), proprioception, noisy predator cues. Shelter reduces observation variance \(\operatorname{Var}(o_t)\).
+
+#### 5.3 Energy & survival (hard constraints)
+
+Recall the energy ledger:
+$$
+E_{t+1}=E_t+H(s_t,a_t)-C_{\text{act}}(a_t)-C_{\text{brain}}(\pi_t)
+$$
+
+- **Harvest \(H\):** if \(\text{forage}\), then \(H\sim \text{Binomial}(F_t(x),p_{\text{harv}})\).  
+- **Action cost \(C_{\text{act}}\):**
+  \[
+  C_{\text{act}}(\text{move})=k_{\text{step}},\quad
+  C_{\text{act}}(\text{forage})=k_{\text{for}},\quad
+  C_{\text{act}}(\text{build})=k_{\text{build}},\quad
+  C_{\text{act}}(\text{self\_stim})=k_{\text{stim}}.
+  \]
+- **Brain cost \(C_{\text{brain}}\):** “lazy neurons”
+  \[
+  C_{\text{brain}}(\pi_t)=\lambda_1\|\text{activations}_t\|_1+\lambda_2\cdot \text{updates}_t
+  \]
+- **Viability:** episode terminates if \(E_t \le 0\) or a lethal predator event occurs. Reward includes \(\mathbf{1}\{s_t\in V\}\) where \(V=\{E>\epsilon,\ \text{safe states}\}\).
+
+#### 5.4 Objective (binds prediction to exploration & viability)
+
+From Section 3:
+$$
+J = \mathbb{E}\!\left[\sum_t \Big(
++\alpha\,\mathrm{info\_gain}_t
+-\beta\,\mathrm{pred\_error}_t
+-\gamma\,C_{\text{act}}(a_t)
+-\delta\,C_{\text{brain}}(\pi_t)
++\rho\,\mathbf{1}\{s_t\in V\}
+\Big)\right]
+$$
+
+**Notes:**  
+- \(\mathrm{info\_gain}_t\) can be \(\mathrm{KL}\) between posterior/prior over model parameters or latent state; a lightweight proxy is **entropy drop** in the agent’s belief over local food dynamics or predator process.  
+- \(\mathrm{pred\_error}_t\) can be NLL of \(o_t\) under the agent’s predictive sensor model \(p_\pi\).
+
+#### 5.5 Baselines (to expose “dark-rooming”)
+
+1. **Prediction-only (degenerate):** optimize \(-\beta\,\mathrm{pred\_error}\) alone ⇒ camps in shelter/self-stim loop (low entropy, early starvation).  
+2. **Prediction + energy costs:** adds \(-\gamma C_{\text{act}}-\delta C_{\text{brain}}\) ⇒ reduces pointless loops but may still under-explore safe high-value frontiers.  
+3. **Full objective (ours):** adds \(+\alpha\,\mathrm{info\_gain} + \rho\,\mathbf{1}\{s_t\in V\}\) ⇒ learns *structured exploration* + *efficient harvest*.
+
+#### 5.6 Diagnostics (what to log)
+
+- **Lifespan** (steps to termination) and **time-to-first-harvest**.  
+- **Energy curve** \(E_t\) and **harvest/consumption balance**.  
+- **Observation entropy** \(H(o_t)\) and **fraction of time in shelter** (detect dark-rooming).  
+- **Information gain per energy** \(\mathrm{IG}/\Delta E\).  
+- **Transfer tests:** performance after switching \(p_{\text{grow}}\) or predator intensity.  
+- **Brittleness:** success under random perturbations (OOD competence).  
+- **Compute audit:** \(\|\text{activations}\|_1\), updates per step (are neurons “lazy”?).
+
+#### 5.7 Canonical ablations
+
+- **Remove info-gain term** (\(\alpha=0\)): does exploration collapse?  
+- **Zero brain cost** (\(\lambda_1=\lambda_2=0\)): do neurons spam activity?  
+- **Free self-stim** (\(k_{\text{stim}}\!\downarrow\)): does the agent addiction-loop?  
+- **No viability reward** (\(\rho=0\)): does it prefer predictable starvation?  
+- **Short horizon planner:** does myopia re-introduce input-control hacks?
+
+#### 5.8 Suggested hyperparameters (starting point)
+
+| Symbol | Meaning | Safe value |
+|---|---|---|
+| \(k_{\text{step}}\) | move cost | 0.2 |
+| \(k_{\text{for}}\) | forage cost | 0.5 |
+| \(k_{\text{build}}\) | build shelter | 2.0 |
+| \(k_{\text{stim}}\) | self-stim cost | 0.8 |
+| \(\lambda_1\) | L1 activations | 0.01 |
+| \(\lambda_2\) | update cost | 0.02 |
+| \(\alpha\) | info-gain weight | 0.3 |
+| \(\beta\) | pred-error weight | 1.0 |
+| \(\gamma\) | action-energy weight | 1.0 |
+| \(\delta\) | brain-energy weight | 1.0 |
+| \(\rho\) | viability reward | 0.5 |
+| \(p_{\text{safe}}\) | food regrowth (safe) | 0.02 |
+| \(p_{\text{risk}}\) | food regrowth (risky) | 0.10 |
+| \(p_{\text{death}}\) | predator lethality | 0.05 |
+| \(F_{\max}\) | food cap per cell | 5 |
+
+*(Tune so that “hide forever” starves, “rush risk” gets punished, and “explore–harvest” thrives.)*
+
+#### 5.9 Minimal loop (pseudo-code)
+
+```text
+for episode in range(E):
+  s = reset(); E = E0; alive = True
+  while alive:
+    o = observe(s)                  # local egocentric patch (noisy)
+    a, brain_stats = policy(o)      # predicts next obs; pays brain cost
+    s' = env_step(s, a)             # updates food field, predators, etc.
+    pred_err = nll_predict(o | history, a)
+    info_gain = posterior_update(...)
+    E = E + harvest(s,a) - C_act(a) - C_brain(brain_stats)
+    alive = (E > 0) and not lethal_predator(s')
+    r = +alpha*info_gain - beta*pred_err - gamma*C_act(a) - delta*C_brain(...) + rho*viability(s')
+    learn(policy, r)
+    s = s'
+```
+
+## Positive patterns that can help
+
+Computationally, some *extreme* cognitive styles can act like **beneficial hacks** when the environment and support match them. These are not diagnoses or prescriptions—just ways a system can lean on one lever of our objective (explore / learn/track / energy / viability) and come out ahead.
+
+### 1) High novelty drive (ADHD-like exploration bias)
+- **Mechanism:** elevated weight on the **exploration** term \(+\alpha\,\mathrm{info\_gain}\); lower inertia against switching tasks/contexts.
+- **Upside:** rapid hypothesis sampling, broader state coverage, resilience to distribution shift; prevents “dark-rooming.”
+- **Cost control:** needs scaffolds to bound **energy** waste \(C_{\text{act}}+C_{\text{brain}}\) and to convert novelty into **learn/track** gains \(-\beta\,\mathrm{pred\_error}\).
+- **Best-fit environments:** rich, changing tasks with frequent feedback (early-stage research, product discovery, field ops).
+
+### 2) Monotropism / deep focus (autistic-like stability bias)
+- **Mechanism:** increased precision on chosen task priors; reduced switching → lower **brain cost** per unit progress; strong **learn/track** within a domain.
+- **Upside:** exceptional pattern extraction, reliability, and long-horizon accumulation; builds tools/shelters that raise long-term **viability** \(\mathbf{1}\{s_t\!\in\!V\}\).
+- **Guardrails:** periodic, lightweight **info\_gain** probes to avoid brittleness; social/environmental interfaces that reduce surprise overhead.
+- **Best-fit environments:** systems engineering, data curation, safety-critical pipelines.
+
+### 3) Conscientious ritualism (OCD-like precision on procedures)
+- **Mechanism:** strong priors for “done-right” sequences; lowers variance in outcomes, compresses **pred\_error**, and prevents costly rework.
+- **Upside:** dependable quality in high-stakes tasks; stabilizes the energy ledger by avoiding failure loops.
+- **Guardrails:** cap ritual length via explicit **energy** prices \(C_{\text{act}},C_{\text{brain}}\); regular OOD checks to ensure procedures still match reality.
+- **Best-fit environments:** checklists for surgery/aviation, infra reliability, compliance/security.
+
+### 4) Threat-sensitivity (anxiety-like hazard detection)
+- **Mechanism:** heightened precision on risk priors; earlier sampling of tail events; raises **viability** by avoiding ruin states.
+- **Upside:** fewer catastrophic tails; better portfolio of **options** maintained under uncertainty.
+- **Guardrails:** enforced **exploration** windows to falsify stale threat priors; energy-aware exposure so caution doesn’t starve learning.
+- **Best-fit environments:** safety review, red-teaming, incident response.
+
+### 5) Hypomanic energy bursts (action bias under opportunity)
+- **Mechanism:** temporarily low perceived **action/brain costs** \(C_{\text{act}},C_{\text{brain}}\) coupled with optimistic priors → rapid hill-climbing and tool creation.
+- **Upside:** unlocks new reachable states (increases option value); creates assets that later reduce costs for everyone.
+- **Guardrails:** external pacing and budget caps to prevent burn; post-burst consolidation to convert action into **learn/track**.
+- **Best-fit environments:** time-boxed sprints, early venture building, crisis mobilization.
+
+### 6) Schizotypy-like associative looseness (creative hypothesis generation)
+- **Mechanism:** wider proposal distribution for models; expands candidate explanations before **learn/track** filters prune.
+- **Upside:** escapes local minima; seeds breakthroughs when combined with empirical selection (info-gain + pred-error).
+- **Guardrails:** strong evidence filters and energy-priced validation; team roles that separate ideation from vetting.
+- **Best-fit environments:** concept discovery, long-shot R&D, design studios.
+
+---
+
+### A simple rule-of-thumb for “helpful extremes”
+A cognitive style is **adaptive** when it **raises long-run viability per total energy** while improving either **information gain** *or* **predictive tracking**:
+
+$$
+\text{Adaptive if}\quad
+\frac{\Delta \mathrm{IG} + \kappa\,\Delta ( -\mathrm{pred\_error})}{\Delta E_{\text{total}}}
+\;\uparrow
+\quad \text{and} \quad
+\mathbb{P}(s_t\in V)\;\uparrow
+$$
+
+- If novelty spikes burn energy but don’t lift IG or tracking → **harmful** in that context.  
+- If focus narrows entropy yet increases harvest, tools, or transfer → **helpful** when periodically re-tuned.
+
+{{< alert color="info" >}}
+**Takeaway:** “Good hacks” exist. The trick is to **price energy**, **measure information and tracking**, and **audit viability**—so the same underlying mechanism can be channeled into strengths rather than traps.
+{{< /alert >}}
+
 
 ---
 
