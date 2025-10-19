@@ -53,9 +53,94 @@ When the third lever dominates, you get **local reductions in surprise** that ca
 
 These signatures flag **prediction hacks**: strategies that feel “certain” but quietly erode capability.
 
-## The “dark room” problem
+## The “dark room” problem (and why it’s a trap)
 
-If intelligence = minimizing prediction error, a degenerate policy is to select an easy sensory diet (the proverbial dark room). You can “win” by closing your eyes. It’s tidy—and useless.
+**Fable version.**  
+If an agent’s job is to minimize prediction error, it can “win” by picking an ultra-predictable sensory diet (a silent, featureless room). Error plummets—not because the agent *understands* more, but because it *sees less*.
+
+### A compact formalization
+
+Suppose the agent can choose actions \(a_t\) that influence its observation distribution \(p(o_t\mid a_t)\), and it is scored only by **predictive accuracy** (e.g., negative log-likelihood):
+
+$$
+\min_{\pi}\; \mathbb{E}\big[-\log p_\pi(o_t \mid h_{t-1})\big]
+\quad \text{with} \quad o_t \sim p(\cdot\mid a_t), \;\; a_t\sim\pi(\cdot\mid h_{t-1})
+$$
+
+If the model \(p_\pi\) is flexible enough to match the chosen stream, the minimizer tends toward **low-entropy observations**:
+
+$$
+\mathbb{E}\big[-\log p_\pi(o_t\mid h_{t-1})\big]
+\;\approx\;
+H\!\left(O_t \mid A_t\right) 
+\quad\Rightarrow\quad
+\text{choose } a_t \text{ that makes } H(O_t\!\mid a_t) \text{ small.}
+$$
+
+Thus, any action that **suppresses variance** in \(o_t\) (closing eyes, self-stimulation, sensory insulation, staying in static environments) looks optimal under a pure prediction metric—even when it annihilates competence.
+
+### Misconceptions to avoid
+
+- **“But a good prior prevents it.”**  
+  Without explicit *costs* (energy) or *bonuses* (information gain / novelty value), a sharp prior can still prefer input-control over learning when that’s cheaper.
+
+- **“Just add noise.”**  
+  Adding noise to inputs raises error *without* guaranteeing *useful* learning. The agent may still minimize error by filtering or avoiding that noise rather than modeling structure.
+
+- **“Bigger models will explore.”**  
+  Capacity alone doesn’t fix incentives; large models can become *better at justifying* low-entropy loops.
+
+### What makes dark rooms attractive (computationally)
+
+- **Local optimum economics:** It’s often metabolically cheaper to **control inputs** than to **update models** or **gather disambiguating data**.  
+- **Skewed precision:** Over-confident priors or over-trusted sensory channels bias actions toward protecting expectations.  
+- **Short horizons:** Myopic objectives discount the future cost of missed learning and lost options.
+
+### Guardrails that break the degeneracy
+
+These align with Section 3’s objective, but stated in dark-room language:
+
+1. **Pay for sterility (energy & brain costs):**  
+   Make both actions and computation expensive:
+   \[
+   -\gamma\,C_{\text{act}}(a_t) - \delta\,C_{\text{brain}}(\pi_t)
+   \]
+   Insulating yourself isn’t free; hiding burns the budget.
+
+2. **Reward *useful* novelty (information gain):**  
+   Add an epistemic term:
+   \[
+   +\alpha\,\mathrm{info\_gain}_t \;=\; +\alpha\,D_{\mathrm{KL}}\!\left(p(\theta\!\mid\!\mathcal{D}_t)\,\|\,p(\theta\!\mid\!\mathcal{D}_{t-1})\right)
+   \]
+   This pays for contact with data that **changes** the model.
+
+3. **Protect viability (survival set \(V\)):**  
+   Add a survival/option-value reward:
+   \[
+   +\rho\,\mathbf{1}\{s_t\in V\}, \quad V=\{E>\epsilon,\ \text{safe states}\}
+   \]
+   Dark rooms that starve energy or shrink options score poorly.
+
+4. **Test out-of-distribution (OOD) competence:**  
+   Evaluate policies on *perturbations they didn’t pick*. Input-control cheats fail when the world moves.
+
+### Operational diagnostics (what to measure in sims)
+
+- **Entropy of observations** \(\downarrow\) while **task competence** \(\not\uparrow\): candidate dark-rooming.  
+- **Information gain per energy** \(\downarrow\): the agent cycles predictable loops with diminishing returns.  
+- **Transfer & perturbation tests** fail: small context shifts cause large performance drops (brittleness).  
+- **Option value trend** \(\downarrow\): fewer reachable states with adequate energy/safety over time.
+
+### Tiny gridworld illustration (quick to implement)
+
+- **World:** safe zone (low food, low threat), risky zone (high food, predators), stochastic food patches.  
+- **Actions:** move, forage, rest, build shelter (reduces variance but throttles harvest), self-stim (predictable reward cue, energy drain).  
+- **Baseline (prediction-only):** agent camps in shelter/self-stim loop → low error, low energy, early death.  
+- **With guardrails:** info-gain nudges exploration; energy costs punish self-stim; viability reward favors routes that keep \(E\) high. The agent oscillates between *structured exploration* and *efficient harvest* instead of hiding.
+
+{{< alert color="info" >}}
+**Bottom line:** The dark room isn’t a bug in prediction; it’s a missing price tag. Once prediction is **cost-aware**, **novelty-seeking**, and **survival-constrained**, the smartest policy is not the quietest—it's the one that buys *future options*.
+{{< /alert >}}
 
 ## A practical fix: bind prediction to energy and survival
 
