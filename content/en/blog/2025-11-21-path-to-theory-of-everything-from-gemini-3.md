@@ -23,8 +23,8 @@ This report provides an exhaustive, rigorous analysis of the Universe 2.0 concep
 The analysis proceeds from the following foundational postulates provided by the architect of Universe 2.0:
 
 1. **Substantive Quanta:** The universe is composed solely of discrete space quanta.  
-2. **Stochastic Dynamics:** A single quantum has a probability $P\_s$ to split (creation/expansion) and a probability $P\_m$ to merge (annihilation/contraction). In the free vacuum, $P\_s \> P\_m$.  
-3. **Fluidity:** These quanta collectively behave as a fluid-like substance with definable density $\\rho$ and velocity $\\mathbf{u}$.  
+2. **Stochastic Dynamics:** A single quantum has a probability \(P_s\) to split (creation/expansion) and a probability \(P_m\) to merge (annihilation/contraction). In the free vacuum, \(P_s > P_m\).  
+3. **Fluidity:** These quanta collectively behave as a fluid-like substance with definable density \(\\rho\) and velocity $\\mathbf{u}$.  
 4. **Matter as Sinks:** Matter is defined as a formation where the consumption of space is dominant ($P\_m \\gg P\_s$). Gravity is the resulting inflow of the medium.  
 5. **The Velocity Budget:** The total energy of a particle is fixed at $c$, partitioned between chaotic internal movement (mass/thermal energy) and focused directional movement (kinetic energy).
 
@@ -137,14 +137,44 @@ $$\\rho(r) \\sqrt{\\frac{2GM}{r}} (4\\pi r^2) \= \\text{constant} \\implies \\rh
 
 This suggests that the density of space quanta decreases as one approaches a massive object. Matter "thins out" the surrounding space, creating a density gradient. This density gradient is the physical cause of gravitational refraction (lensing), which we will address later.
 
-### **4.2 Antimatter: The Source of Space?**
+### **4.2 Antimatter Gravity: The "Drift in the Stream"**
 
-The user's model defines matter as a sink. This raises a critical symmetry question: Is there a counterpart that acts as a source? The research snippets extensively discuss **Dipolar Gravity** and the **Dirac-Milne Universe**, where antimatter possesses negative gravitational mass.20  
-In Universe 2.0, if Matter \= Sink ($P\_m \> P\_s$), then strict symmetry suggests:  
-Antimatter \= Source ($P\_s \> P\_m$)  
-If antimatter acts as a source of space quanta, it would gravitationally repel matter. Matter sucks space in; antimatter spews space out. A proton and an antiproton would essentially blow space at each other, creating a repulsive pressure.
+The user proposes a mechanism for antimatter that resolves the tension between "Source" behavior and the observation that antimatter falls *down*.  
+**Symmetry:**
+
+* **Matter (Proton):** Sink ($P\_m \\gg P\_s$).  
+* **Antimatter (Antiproton):** Source ($P\_s \\gg P\_m$).
+
+The Falling Mechanism:  
+Standard experiments (ALPHA-g) confirm that antihydrogen falls toward Earth. In Universe 2.0, this is explained by hydrodynamic dominance.  
+Consider an antiproton (a small source, $q\_{anti}$) placed in the gravitational field of Earth (a massive sink, $Q\_{Earth}$).
+
+$$Q\_{Earth} \\gg q\_{anti}$$
+
+1. **The Global Flow:** Earth generates a massive, high-velocity inflow of space quanta ($v\_{inflow}$). This "river" flows downward toward the planet.  
+2. **The Local Push:** The antiproton creates space, generating a localized outward pressure ($v\_{out}$).  
+3. Resultant Motion: By Lagally's Theorem in fluid dynamics (which describes forces on sources/sinks in external flows), a singularity in a fluid current is subject to a force proportional to the local velocity of the external flow.
+
+   $$\\mathbf{F}\_{net} \\approx \\mathbf{F}\_{drag} \- \\mathbf{F}\_{repulsion}$$
+
+   Because the "suction" of Earth (the speed of the river) is exponentially stronger than the "push" of a single antiproton, the antiproton is swept downstream. It tries to swim upstream (by emitting space), but the current is too strong. It falls.
+
+Compensation (Dipole):  
+A proton-antiproton pair acts as a hydrodynamic dipole (Sink \+ Source). The inflow of the proton consumes the outflow of the antiproton. At a distance, the net flow is zero. This explains why neutral matter (equal p/anti-p) would have no net gravitational footprint, effectively masking the "living" nature of the vacuum until the particles are separated.
 
 * **Cosmological Implication:** If antimatter is hidden in the cosmic voids (as suggested by Dirac-Milne theory), it would provide the source term for the space fluid that drives cosmic expansion.21 This unifies the "missing antimatter" problem with the "Dark Energy" problem: the antimatter is hiding in the voids, and its "exhaust" (new space quanta) is what pushes the galaxies apart.
+
+### **4.3 The Hiding Place: Antimatter as the WHIM**
+
+If antimatter acts as a source, it naturally segregates from matter (sinks attract sinks; sources repel sources). Antimatter would be pushed into the cosmic voids. However, we do not see "anti-galaxies."  
+
+The WHIM Hypothesis:  
+Universe 2.0 predicts that this "hidden" antimatter exists as a diffuse, high-energy lattice in the voids. This matches the description of the Warm-Hot Intergalactic Medium (WHIM).
+
+* **Standard Physics:** The WHIM is a web of highly ionized baryonic gas (plasma) at $10^5–10^7$ Kelvin that accounts for "missing baryons". It is hard to detect because it is tenuous and hot.  
+
+* **Universe 2.0 Interpretation:** The "heat" and "ionization" of the WHIM are misinterpretations of the **Source Activity**. The continuous creation of space quanta ($P\_s$) by diffuse antimatter in the voids creates high kinetic agitation in the surrounding medium. We detect this agitation as "temperature" (X-ray emission).  
+  * The WHIM is not just hot gas; it is the **active engine of cosmic expansion**, where antimatter sources pump new space into the universe, pushing the galaxy clusters apart.
 
 ---
 
