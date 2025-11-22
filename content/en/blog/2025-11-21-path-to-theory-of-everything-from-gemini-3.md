@@ -52,7 +52,7 @@ Here, \(\Sigma\) represents the net source/sink term derived from the probabilit
 \[\Sigma = \alpha P_s \rho - \beta P_m \rho^2\]  
 Where \(\alpha\) and \(\beta\) are rate constants.
 
-* **In the Vacuum (Voids):** \(P_s\) dominates (\(P_s \> P_m\)). The term \(\Sigma\) is positive. Space is continuously created, generating an internal pressure that drives expansion. This effectively models the "cosmological constant" as a dynamical pressure.3  
+* **In the Vacuum (Voids):** \(P_s\) dominates (\(P_s > P_m\)). The term \(\Sigma\) is positive. Space is continuously created, generating an internal pressure that drives expansion. This effectively models the "cosmological constant" as a dynamical pressure.3  
 * **In Matter (Galaxies):** \(P_m\) dominates (\(P_m \gg P_s\)). The term \(\Sigma\) is negative. Space is consumed, creating a low-pressure zone that pulls the surrounding medium inward. This inflow is what we perceive as gravity.4
 
 ### **2.2 The Equation of Motion: Euler and Navier-Stokes**
@@ -60,7 +60,7 @@ Where \(\alpha\) and \(\beta\) are rate constants.
 The motion of the space fluid is governed by the balance of forces acting upon the quanta. Assuming the fluid is inviscid (superfluid) but compressible, the momentum equation (Euler equation) applies 2:  
 \[ \rho \left( \frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla) \mathbf{u} \right) = -\nabla p + \mathbf{f}_{ext} \]  
 In Universe 2.0, the pressure \(p\) is a consequence of the quanta density. A region with a high concentration of quanta (high \(\rho\)) will naturally push against a region of low density. This leads to a barotropic equation of state where \(p = p(\rho)\).  
-Critically, recent research in Superfluid Vacuum Theory suggests that the vacuum may not be perfectly inviscid; it may have a microscopic viscosity \(\eta\) arising from the interaction between quanta. If \(\eta \> 0\), the equation becomes the Navier-Stokes equation. This viscosity is essential for explaining the rotation of galaxies without Dark Matter, as it allows the rotating core of a galaxy to "drag" the surrounding space fluid into a vortex.7
+Critically, recent research in Superfluid Vacuum Theory suggests that the vacuum may not be perfectly inviscid; it may have a microscopic viscosity \(\eta\) arising from the interaction between quanta. If \(\eta > 0\), the equation becomes the Navier-Stokes equation. This viscosity is essential for explaining the rotation of galaxies without Dark Matter, as it allows the rotating core of a galaxy to "drag" the surrounding space fluid into a vortex.7
 
 ### **2.3 The Acoustic Metric: From Fluid to Geometry**
 
@@ -95,7 +95,7 @@ The conservation of energy equation, modified for open systems (where particle n
 The creation of new quanta injects energy into the system. This leads to an effective pressure \(p_{eff}\):
 
 \[p_{eff} = p_{thermo} - \frac{\Gamma \rho}{3H}\]  
-Where \(\Gamma\) is the creation rate of quanta (derived from \(P_s\)) and \(H\) is the Hubble parameter. Since \(\Gamma \> 0\) (creation dominates in the vacuum), the term \(- \frac{\Gamma \rho}{3H}\) generates a massive **negative pressure**.  
+Where \(\Gamma\) is the creation rate of quanta (derived from \(P_s\)) and \(H\) is the Hubble parameter. Since \(\Gamma > 0\) (creation dominates in the vacuum), the term \(- \frac{\Gamma \rho}{3H}\) generates a massive **negative pressure**.  
 **Conclusion:** In General Relativity, negative pressure produces repulsive gravity. Therefore, the constant splitting of space quanta (\(P_s\)) drives the accelerated expansion of the universe. The "Dark Energy" is simply the pressure of newly born space pushing the old space apart. You do not need an extra substance; the "substance" of space itself causes the acceleration.14
 
 ### **3.2 Resolving the Hubble Tension**
@@ -293,7 +293,7 @@ As \(r\) decreases, \(v_{inflow}\) increases. There exists a critical radius \(R
 
 This is exactly the Schwarzschild radius.
 
-* **Inside \(R_h\):** The space fluid flows inward at \(v \> c\). A photon (sound wave) trying to escape travels at \(c\) relative to the fluid, but the fluid is dragging it backward faster than it can swim. The photon is trapped.  
+* **Inside \(R_h\):** The space fluid flows inward at \(v > c\). A photon (sound wave) trying to escape travels at \(c\) relative to the fluid, but the fluid is dragging it backward faster than it can swim. The photon is trapped.  
 * **No Singularity:** In fluid dynamics, the flow doesn't necessarily collapse to a point; it might transition to a different phase or exit into another region (like a wormhole or a white hole source). The "singularity" is likely just a breakdown of the continuum approximation, where the discrete nature of the quanta becomes dominant.9
 
 ---
@@ -336,10 +336,10 @@ To visualize the robustness of Universe 2.0, we compare its predictions against 
 | Phenomenon | Standard Model (ΛCDM) | Universe 2.0 (Hydrodynamic) | Experimental Match? |
 | :---- | :---- | :---- | :---- |
 | **Gravity** | Curvature of spacetime manifold | Fluid sink flow (River Model) | **Yes** (Newtonian & GR limits match) |
-| **Expansion** | Metric expansion (Big Bang inertia) | Creation of space quanta (\(P_s \> P_m\)) | **Yes** |
+| **Expansion** | Metric expansion (Big Bang inertia) | Creation of space quanta (\(P_s > P_m\)) | **Yes** |
 | **Acceleration** | Dark Energy (\(\Lambda\)) | Negative pressure from creation | **Yes** (Explains \(\Lambda\)) |
 | **Time Dilation** | Geometric path difference | Velocity budget conservation | **Yes** (Lorentz Invariance emerges) |
-| **Black Holes** | Geometric Singularity | Sonic/Inflow Horizon (\(v \> c\)) | **Yes** (Observationally identical) |
+| **Black Holes** | Geometric Singularity | Sonic/Inflow Horizon (\(v > c\)) | **Yes** (Observationally identical) |
 | **Galaxy Rotation** | Dark Matter Halos | Superfluid Vortices & Pressure | **Yes** (Explains without DM) |
 | **Lensing** | Geodesic curvature | Optical Refraction (Index Gradient) | **Yes** |
 | **Void Dynamics** | Passive expansion | Active pressure (Dipole Repeller) | **Yes** (Resolves Repeller anomaly) |
