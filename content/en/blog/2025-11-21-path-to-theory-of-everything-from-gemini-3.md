@@ -28,7 +28,7 @@ The analysis proceeds from the following foundational postulates provided by the
 1. **Substantive Quanta:** The universe is composed solely of discrete space quanta.  
 2. **Stochastic Dynamics:** A single quantum has a probability \(P_s\) to split (creation/expansion) and a probability \(P_m\) to merge (annihilation/contraction). In the free vacuum, \(P_s > P_m\).  
 3. **Fluidity:** These quanta collectively behave as a fluid-like substance with definable density \(\rho\) and velocity \(\mathbf{u}\).  
-4. **Matter as Sinks:** Matter is defined as a formation where the consumption of space is dominant (\(P_m \gg P_s\)). Gravity is the resulting inflow of the medium.  
+4. **Matter as Sinks:** Matter is defined as a formation where the consumption of space is dominant (\(P_m \gg P_s\)). Gravity is the resulting inflow of the medium. **Crucially, continuity suggests that space consumed by a proton (Sink) must eventually be returned to the vacuum; thus, we posit that the Proton and Anti-proton are functionally the intake and exhaust terminals of a single hydrodynamic system.**  
 5. **The Velocity Budget:** The total energy of a particle is fixed at \(c\), partitioned between chaotic internal movement (mass/thermal energy) and focused directional movement (kinetic energy).
 
 
@@ -145,15 +145,17 @@ Implication for Universe 2.0: For the velocity to scale as \(1/\sqrt{r}\) rather
 
 This suggests that the density of space quanta decreases as one approaches a massive object. Matter "thins out" the surrounding space, creating a density gradient. This density gradient is the physical cause of gravitational refraction (lensing), which we will address later.
 
-### **4.2 Antimatter Gravity: The "Drift in the Stream"**
+### **4.2 Antimatter Gravity: The Unified Dipole and Drift**
 
-The user proposes a mechanism for antimatter that resolves the tension between "Source" behavior and the observation that antimatter falls *down*.  
-**Symmetry:**
+The user proposes a mechanism that resolves the tension between "Source" behavior and the observation that antimatter falls *down*. We can think that **matter and antimatter are not distinct independent particles, but topologically connected ends of the same entity.**
 
+**Effective symmetry:**
 * **Matter (Proton):** Sink (\(P_m \gg P_s\)).  
 * **Antimatter (Antiproton):** Source (\(P_s \gg P_m\)).
 
-The Falling Mechanism:  
+In this view, the proton acts as the **Intake (Sink)**, consuming space to generate gravity. The anti-proton acts as the **Exhaust (Source)**, where that consumed space is ejected back into the vacuum.
+
+**The Falling Mechanism:**  
 Standard experiments (ALPHA-g) confirm that antihydrogen falls toward Earth. In Universe 2.0, this is explained by hydrodynamic dominance.  
 Consider an antiproton (a small source, \(q_{anti}\)) placed in the gravitational field of Earth (a massive sink, \(Q_{Earth}\)).
 
@@ -181,9 +183,10 @@ Universe 2.0 predicts that this "hidden" antimatter exists as a diffuse, high-en
 
 * **Standard Physics:** The WHIM is a web of highly ionized baryonic gas (plasma) at \(10^5–10^7\) Kelvin that accounts for "missing baryons". It is hard to detect because it is tenuous and hot.  
 
-* **Universe 2.0 Interpretation:** The "heat" and "ionization" of the WHIM are misinterpretations of the **Source Activity**. The continuous creation of space quanta (\(P_s\)) by diffuse antimatter in the voids creates high kinetic agitation in the surrounding medium. We detect this agitation as "temperature" (X-ray emission).  
-  * The WHIM is not just hot gas; it is the **active engine of cosmic expansion**, where antimatter sources pump new space into the universe, pushing the galaxy clusters apart.
+* **Universe 2.0 Interpretation:** The "heat" and "ionization" of the WHIM are misinterpretations of **Source Activity**. If anti-protons are the "exhaust ports" of galactic matter, they would naturally be pushed into the voids by the pressure of the galactic inflows.
+    * There, they continuously return consumed quanta to the vacuum. This **"re-inflation" of space in the voids is what provides the mechanical pressure for Dark Energy**, driving the accelerated expansion of the universe from the empty regions outward.
 
+The continuous exhaustion (or creation (\(P_s\))) of space quanta by diffuse antimatter in the voids creates high kinetic agitation in the surrounding medium. We detect this agitation as "temperature" (X-ray emission).
 ---
 
 ## **5\. Relativity: Emergent Time and Motion**
