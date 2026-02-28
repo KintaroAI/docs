@@ -1,6 +1,6 @@
 ---
 title: AI Slop
-weight: 999
+date: 2020-01-01
 ---
 
 AI-generated theory of everything articles.
