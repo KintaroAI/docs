@@ -49,7 +49,7 @@ In parallel, we research improvements to existing transformer architectures — 
 Read more about our constraints and approach in [AGI Development Principles](/docs/principles/).
 {{% /blocks/section %}}
 
-{{% blocks/section color="gray" %}}
+{{% blocks/section color="light" %}}
 ## Documentation
 
 - [Docs](/docs/) — principles, AGI concept, and technical documentation
