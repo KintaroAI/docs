@@ -5,118 +5,53 @@ title: KintaroAI
 <h1 class="display-1 mt-0 mt-md-5 pb-4">
 <b>
   <span style="color: #FF6B6B;">KintaroAI</span> is building<br>
-  <span style="color: #45B7D1;">Artificial General Intelligence</span> 
-  to solve <span style="color: #4ECDC4;">longevity</span><br>
+  <span style="color: #45B7D1;">Artificial General Intelligence</span>
+  to achieve <span style="color: #4ECDC4;">indefinite lifespan</span><br>
   and reach the <span style="color: #FFEAA7;">stars</span>
 </b>
 </h1>
 <a class="btn btn-lg btn-primary me-3 mb-4" href="/docs/">
   Learn More <i class="fas fa-arrow-alt-circle-right ms-2"></i>
 </a>
-<a class="btn btn-lg btn-secondary me-3 mb-4" href="https://github.com/google/docsy-example">
-  Download <i class="fab fa-github ms-2 "></i>
+<a class="btn btn-lg btn-secondary me-3 mb-4" href="https://github.com/KintaroAI">
+  GitHub <i class="fab fa-github ms-2 "></i>
 </a>
-<p class="lead mt-5">Discover our mission, core values, and strategy for building the future of intelligence!</p>{{< blocks/link-down color="info" >}}
+{{< blocks/link-down color="info" >}}
 {{< /blocks/cover >}}
 
 {{% blocks/section color="white" %}}
 ## Mission
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Build AGI so people can live as long as they choose to. Indefinite lifespan — removing the biological cap on how long you live — is currently blocked by the limits of human intelligence. AGI breaks that bottleneck. Once lifespan is no longer a constraint, space exploration becomes a realistic next step rather than a multi-generational gamble.
 
+AGI must be accessible to everyone. People should be able to grow and run their own AGI instances — personal, distributed, and independent. When AGI is owned by individuals and families rather than centralized in corporations or governments, it prevents capture, prevents totalitarian control, and keeps the technology aligned with the people using it. This means keeping it cheap, open source, and runnable on commodity hardware.
+
+All development is open source.
 {{% /blocks/section %}}
 
 {{% blocks/section color="gray" %}}
 ## Core Values
 
-TBD - Core values will be defined here. These will outline the fundamental principles that guide our development and decision-making processes.
-
+- **Open source** — all research and code are public
+- **Accessible** — AGI must be cheap enough for anyone to run
+- **Distributed** — personal AGI instances, not centralized infrastructure
+- **First principles** — understand the problem before engineering a solution
+- **No government capture** — architecture and distribution that prevents centralized control
 {{% /blocks/section %}}
 
 {{% blocks/section color="white" %}}
 ## Strategy
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+To build AGI we first need to understand natural intelligence, then use first principles to build an artificial version of it. See the [Artificial General Intelligence Concept](/docs/natural-intelligence/) for the current approach.
 
+In parallel, we research improvements to existing transformer architectures — see the [LLM fundamentals research](https://github.com/KintaroAI/research/tree/master/llm-fundamentals).
+
+Read more about our constraints and approach in [AGI Development Principles](/docs/principles/).
 {{% /blocks/section %}}
 
 {{% blocks/section color="gray" %}}
 ## Documentation
 
-TBD - Documentation strategy and approach will be outlined here. This section will describe how we approach creating and maintaining comprehensive, user-friendly tbd.
-
-{{% /blocks/section %}}
-
-{{< blocks/cover title="Welcome to Goldydocs: A Docsy Example Project!" image_anchor="top" height="full" >}}
-<a class="btn btn-lg btn-primary me-3 mb-4" href="/docs/">
-  Learn More <i class="fas fa-arrow-alt-circle-right ms-2"></i>
-</a>
-<a class="btn btn-lg btn-secondary me-3 mb-4" href="https://github.com/google/docsy-example">
-  Download <i class="fab fa-github ms-2 "></i>
-</a>
-<p class="lead mt-5">Porridge temperature assessment &mdash; in the cloud!</p>
-{{< blocks/link-down color="info" >}}
-{{< /blocks/cover >}}
-
-
-{{% blocks/lead color="primary" %}}
-Goldydocs provides a single web UI providing visibility into porridge
-temperature, chair size, and bed softness metrics! You can even find out who's
-been eating **your** porridge.
-
-(Sadly, Goldydocs isn't a real project, but you can use this site as an example
-to create your own real websites with [Docsy](https://docsy.dev))
-{{% /blocks/lead %}}
-
-
-{{% blocks/section color="dark" type="row" %}}
-{{% blocks/feature icon="fa-lightbulb" title="New chair metrics!" %}}
-The Goldydocs UI now shows chair size metrics by default.
-
-Please follow this space for updates!
-{{% /blocks/feature %}}
-
-
-{{% blocks/feature icon="fab fa-github" title="Contributions welcome!" url="https://github.com/google/docsy-example" %}}
-We do a [Pull Request](https://github.com/google/docsy-example/pulls) contributions workflow on **GitHub**. New users are always welcome!
-{{% /blocks/feature %}}
-
-
-{{% blocks/feature icon="fab fa-twitter" title="Follow us on Twitter!" url="https://twitter.com/docsydocs" %}}
-For announcement of latest features etc.
-{{% /blocks/feature %}}
-
-
-{{% /blocks/section %}}
-
-
-{{% blocks/section %}}
-This is the second section
-{.h1 .text-center}
-{{% /blocks/section %}}
-
-
-{{% blocks/section type="row" %}}
-
-{{% blocks/feature icon="fab fa-app-store-ios" title="Download **from AppStore**" %}}
-Get the Goldydocs app!
-{{% /blocks/feature %}}
-
-{{% blocks/feature icon="fab fa-github" title="Contributions welcome!"
-    url="https://github.com/google/docsy-example" %}}
-We do a [Pull Request](https://github.com/google/docsy-example/pulls)
-contributions workflow on **GitHub**. New users are always welcome!
-{{% /blocks/feature %}}
-
-{{% blocks/feature icon="fab fa-twitter" title="Follow us on Twitter!"
-    url="https://twitter.com/GoHugoIO" %}}
-For announcement of latest features etc.
-{{% /blocks/feature %}}
-
-{{% /blocks/section %}}
-
-
-{{% blocks/section %}}
-This is the another section
-{.h1 .text-center}
+- [Docs](/docs/) — principles, AGI concept, and technical documentation
+- [Blog](/blog/) — research notes, experiments, and ideas
 {{% /blocks/section %}}
