@@ -99,7 +99,7 @@ params:
     # set taxonomyPageHeader = [] to hide taxonomies on the page headers
     taxonomyPageHeader: [tags, categories]
 
-  privacy_policy: https://policies.google.com/privacy
+  # privacy_policy:
 
   # First one is picked as the Twitter card image if not set on page.
   # images: [images/project-illustration.png]
@@ -145,8 +145,8 @@ params:
   prism_syntax_highlighting: false
 
   copyright:
-    authors: Docsy Authors | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0) |
-    from_year: 2018
+    authors: KintaroAI
+    from_year: 2025
 
   # User interface configuration
   ui:
@@ -169,9 +169,9 @@ params:
       enable: true
       # The responses that the user sees after clicking "yes" (the page was helpful) or "no" (the page was not helpful).
       'yes': >-
-        Glad to hear it! Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.
+        Glad to hear it! Please <a href="https://github.com/KintaroAI/docs/issues/new">tell us how we can improve</a>.
       'no': >-
-        Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.
+        Sorry to hear that. Please <a href="https://github.com/KintaroAI/docs/issues/new">tell us how we can improve</a>.
 
     # Adds a reading time to the top of each doc.
     # If you want this feature, but occasionally need to remove the Reading time from a single page,
@@ -180,34 +180,16 @@ params:
       enable: false
 
   links:
-    # End user relevant links. These will show up on left side of footer and in the community page if you have one.
     user:
-      - name: User mailing list
-        url: https://example.org/mail
-        icon: fa fa-envelope
-        desc: Discussion and help from your fellow users
       - name: Twitter
         url: https://twitter.com/Kintaro_AI
         icon: fab fa-twitter
-        desc: Follow us on Twitter to get the latest news!
-      - name: Stack Overflow
-        url: https://example.org/stack
-        icon: fab fa-stack-overflow
-        desc: Practical questions and curated answers
-    # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
+        desc: Follow us on Twitter
     developer:
       - name: GitHub
         url: https://github.com/KintaroAI/docs
         icon: fab fa-github
         desc: Development takes place here!
-      - name: Slack
-        url: https://example.org/slack
-        icon: fab fa-slack
-        desc: Chat with other project developers
-      - name: Developer mailing list
-        url: https://example.org/mail
-        icon: fa fa-envelope
-        desc: Discuss development issues around the project
 
 module:
   # Uncomment the next line to build and serve using local docsy clone declared in the named Hugo workspace:
