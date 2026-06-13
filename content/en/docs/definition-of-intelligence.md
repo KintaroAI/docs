@@ -4,7 +4,7 @@ weight: 2
 author: baraban
 ---
 
-## Intelligence is an emergent property of a system that is trying to predict the future
+## Intelligence is an emergent property of a system that tries to predict and shape an uncertain future
 {.text-center}
 
 **Definition (functional)**: Intelligence is an emergent property of a system that learns to predict its sensory inputs and the consequences of its actions; acting intelligently means using those predictions to shape preferred futures under uncertainty.
