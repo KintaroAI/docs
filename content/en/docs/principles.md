@@ -8,7 +8,7 @@ We can outline the principles we’ll use in AGI research and development:
 
 ## First Principles and Definition
 
-* We’ll start with first principles thinking and our working definition of intelligence: *“[Intelligence is an emergent property of a system that is trying to predict the future](/docs/definition-of-intelligence/)”.* We’ll see how far we can get with this definition, and if it needs to be updated later, so be it.
+* We’ll start with first principles thinking and our working definition of intelligence: *“[Intelligence is an emergent property of a system that tries to predict and shape an uncertain future](/docs/definition-of-intelligence/)”.* We’ll see how far we can get with this definition, and if it needs to be updated later, so be it.
 
 ## Reverse-Engineering Natural Intelligence
 
