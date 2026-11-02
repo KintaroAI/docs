@@ -8,6 +8,8 @@ authors:
   - baraban
 ---
 
+> **Note:** This is a living document. It will change as new data comes in, and that includes the rank types themselves.
+
 We need a simple way to say how far an AGI has grown. This page defines a scale of nine ranks, from lowest to highest: F, E, D, C, B, A, S, SS and SSS.
 
 F is the bottom of the scale, and A is the top of the human range. S, SS and SSS sit above A because they go beyond any one person: they compare to a company, a nation, and civilization itself. The human range also has its own [sublevels](#human-sublevels), such as B- or A+.
@@ -73,6 +75,35 @@ An F-rank AGI learns to predict the next moment and reacts to its environment. I
 Instincts are the only thing it is given. The body reports a need, such as low energy, and the model has to discover for itself which actions reduce it. This also [ties prediction to survival](/docs/sensory-input-hacking/#a-practical-fix-bind-prediction-to-energy-and-survival), so the AGI can't get by on predicting an empty, unchanging world.
 
 **Test:** Placed in an environment with scattered food and no instructions, it keeps itself alive, and it adapts when the food moves.
+
+### Current Candidate: F-
+
+The current candidate for F rank is arm C16, seed 2 of experiment [vm-00064](https://github.com/KintaroAI/research/blob/exp/vm-00064/visual-motor-agent/00064-sixteen-pieces/README.md) (tag `exp/vm-00064`). It is made of 16 quadrant-style transformers that choose moves by the council rule, and it lives in an egocentric circle world. It holds F- because it forages but hasn't yet passed the full F-rank test.
+
+Its weights are 16 files stored locally, outside the repository, at `~/data/research/visual-motor-agent/exp_00064/C16_s2/ckpt_00060000_p*.bin`.
+
+Results over the last 20,000 ticks of its life:
+
+| Measure | Seed 2 | Average of 8 seeds |
+|---------|--------|--------------------|
+| Food per 1,000 ticks | 39.7 | 34.7 |
+| Poison per 1,000 ticks | 0.65 | 0.62 |
+| Food share | 0.98 | 0.98 |
+| Mean logged hunger | 0.024 | 0.045 |
+
+Its highest logged hunger was 0.072.
+
+We chose this seed because ranks belong to individual instances, and it has the steadiest hunger of the eight. Seed 3 eats more (51.4 food), but its hunger reached 0.56, so it is less reliably fed. This was a pick from eight seeds after the fact, so the average is the fairer picture of what this model does.
+
+**Gaps to F rank:**
+
+1. **Adaptation:** This is the main gap. It has never been shown to adapt when the food moves. The next step is to change the rules mid-life, measure how fast foraging recovers, and compare with a frozen copy.
+
+2. **Real survival:** The world has no death, so "keeps itself alive" is only implied. The next step is to add death at full hunger and show that it lasts a whole life.
+
+3. **Any body:** The same code runs in other bodies, but this instance has only lived in one, and the car doesn't yet forage by choice.
+
+Gaps 1 and 2 are small world changes and could be one experiment on this same arm. Gap 3 is harder, and it is the same as challenge 1 of the [research plan](https://github.com/KintaroAI/research/blob/master/visual-motor-agent/ARCHITECTURE.md#13-beyond-prediction-the-research-plan-2026-11-01): one set of weights in many worlds.
 
 ## E Rank: Explorer
 
